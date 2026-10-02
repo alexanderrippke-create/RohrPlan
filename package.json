@@ -1,0 +1,47 @@
+{
+  "name": "rohrplan",
+  "version": "0.1.2",
+  "description": "Lokale Desktop-App zur isometrischen Rohr- und Biegeplanung",
+  "main": "electron/main.cjs",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis"
+  },
+  "devDependencies": {
+    "electron": "^42.0.0",
+    "electron-builder": "^26.0.0"
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.3"
+  },
+  "build": {
+    "appId": "de.rohrplan.desktop",
+    "productName": "RohrPlan",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "zeichenfeld.html",
+      "zeichenfeld.css",
+      "zeichenfeld.js",
+      "electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "alexanderrippke-create",
+        "repo": "RohrPlan",
+        "releaseType": "release"
+      }
+    ],
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}

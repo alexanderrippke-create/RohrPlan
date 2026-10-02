@@ -1,6 +1,7 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('rohrPlanDesktop', {
+  readStepRuntime: () => ipcRenderer.invoke('step:read-runtime'),
   pickDirectory: () => ipcRenderer.invoke('project:pick-directory'),
   ensureDirectory: (rootPath, name, create) => ipcRenderer.invoke('project:ensure-directory', { rootPath, name, create }),
   readFile: async (rootPath, name) => {

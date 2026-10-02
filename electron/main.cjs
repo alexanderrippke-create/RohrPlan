@@ -38,6 +38,7 @@ ipcMain.handle('project:write-file', async (_event, { rootPath, name, contents }
   await fs.writeFile(target, contents, 'utf8');
 });
 ipcMain.handle('project:remove-file', async (_event, { rootPath, name }) => fs.unlink(resolveChild(rootPath, name)));
+ipcMain.handle('step:read-runtime', async () => new Uint8Array(await fs.readFile(path.join(__dirname, '..', 'vendor', 'occt-import-js', 'occt-import-js.wasm'))));
 
 function createWindow() {
   const window = new BrowserWindow({

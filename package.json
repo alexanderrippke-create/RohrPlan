@@ -1,6 +1,6 @@
 {
   "name": "rohrplan",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Lokale Desktop-App zur isometrischen Rohr- und Biegeplanung",
   "main": "electron/main.cjs",
   "private": true,
@@ -43,6 +43,7 @@
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
-    }
+    },
+    "artifactName": "RohrPlan-Setup-${version}.${ext}"
   }
 }

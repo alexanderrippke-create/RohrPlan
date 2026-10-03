@@ -1,6 +1,8 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('rohrPlanDesktop', {
+  saveIsometryFile: (name, contents) => ipcRenderer.invoke('isometry:save-file', { name, contents }),
+  exportBendDataPdf: () => ipcRenderer.invoke('bend-data:export-pdf'),
   readStepRuntime: () => ipcRenderer.invoke('step:read-runtime'),
   pickDirectory: () => ipcRenderer.invoke('project:pick-directory'),
   ensureDirectory: (rootPath, name, create) => ipcRenderer.invoke('project:ensure-directory', { rootPath, name, create }),

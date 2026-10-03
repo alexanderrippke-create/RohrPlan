@@ -1,6 +1,6 @@
 # RohrPlan als Windows-Desktopprogramm
 
-Die App wird mit Electron als eigenständiges Windows-Programm gestartet. Die Projektordnerauswahl läuft über den Windows-Dateidialog; Projektmanifest und Isometrien werden als JSON-Dateien im gewählten Ordner abgelegt. Der zuletzt verwendete Ordner wird im lokalen App-Profil gemerkt.
+Die App wird mit Electron als eigenständiges Windows-Programm gestartet. Die Projektordnerauswahl läuft über den Windows-Dateidialog; Einzelne Isometrien können unabhängig von einem Projekt als .rohrplan.json-Dateien gespeichert und geöffnet werden. Optional werden Projektmanifest und Isometrien im gewählten Projektordner abgelegt. Der zuletzt verwendete Ordner wird im lokalen App-Profil gemerkt.
 
 ## STEP-Vorschau
 

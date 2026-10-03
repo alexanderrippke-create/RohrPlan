@@ -1,4 +1,4 @@
-const { app, BrowserWindow, dialog, ipcMain } = require('electron');
+const { app, BrowserWindow, dialog, ipcMain, shell } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const fs = require('node:fs/promises');
 const path = require('node:path');
@@ -11,6 +11,16 @@ function resolveChild(rootPath, relativePath) {
   if (!target.startsWith(`${root}${path.sep}`)) throw new Error('Der Dateiname liegt außerhalb des Projektordners.');
   return target;
 }
+
+ipcMain.handle('isometry:save-file', async (event, { name, contents }) => {
+  if (typeof name !== 'string' || /[<>:"/\\|?*\u0000-\u001f]/.test(name) || typeof contents !== 'string') throw new Error('Ungültige Isometrie-Datei.');
+  const data = JSON.parse(contents);
+  if (data.formatVersion !== 1 || !Array.isArray(data.segments) || !data.profile) throw new Error('Ungültige Isometrie.');
+  const result = await dialog.showSaveDialog(BrowserWindow.fromWebContents(event.sender), { title: 'Isometrie als Datei speichern', defaultPath: path.join(app.getPath('documents'), name), filters: [{ name: 'RohrPlan-Isometrie', extensions: ['json'] }] });
+  if (result.canceled || !result.filePath) return { canceled: true };
+  await fs.writeFile(result.filePath, contents, 'utf8');
+  return { canceled: false };
+});
 
 ipcMain.handle('project:pick-directory', async (event) => {
   const result = await dialog.showOpenDialog(BrowserWindow.fromWebContents(event.sender), {
@@ -39,6 +49,27 @@ ipcMain.handle('project:write-file', async (_event, { rootPath, name, contents }
 });
 ipcMain.handle('project:remove-file', async (_event, { rootPath, name }) => fs.unlink(resolveChild(rootPath, name)));
 ipcMain.handle('step:read-runtime', async () => new Uint8Array(await fs.readFile(path.join(__dirname, '..', 'vendor', 'occt-import-js', 'occt-import-js.wasm'))));
+
+ipcMain.handle('bend-data:export-pdf', async (event) => {
+  const window = BrowserWindow.fromWebContents(event.sender);
+  if (!window) throw new Error('Das Anwendungsfenster ist nicht verfügbar.');
+  const result = await dialog.showSaveDialog(window, {
+    title: 'Biegedaten als PDF speichern',
+    defaultPath: path.join(app.getPath('documents'), 'RohrPlan-Biegedaten.pdf'),
+    filters: [{ name: 'PDF-Dateien', extensions: ['pdf'] }]
+  });
+  if (result.canceled || !result.filePath) return { canceled: true };
+  const pdf = await window.webContents.printToPDF({
+    pageSize: 'A4',
+    printBackground: true,
+    preferCSSPageSize: true,
+    margins: { top: 0, bottom: 0, left: 0, right: 0 }
+  });
+  await fs.writeFile(result.filePath, pdf);
+  const openError = await shell.openPath(result.filePath);
+  if (openError) throw new Error(`PDF wurde gespeichert, konnte aber nicht geöffnet werden: ${openError}`);
+  return { canceled: false, filePath: result.filePath };
+});
 
 function createWindow() {
   const window = new BrowserWindow({

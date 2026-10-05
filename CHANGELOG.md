@@ -1,3 +1,8 @@
+# RohrPlan 0.1.7 – Simulator startet wieder
+
+- JavaScript-Syntaxfehler in der Modellvorschau behoben. Ein verbliebener Teil des alten Maschinen-Datenblocks verhinderte in Version 0.1.6 den Start des Simulators.
+- Die bestätigte ISO-Ansicht, Biegearmorientierung und Maschinenmaße bleiben erhalten.
+
 # RohrPlan 0.1.6 – Biegesimulation und Kollisionswarnungen
 
 - Biegesimulation mit Vorschub, Futterdrehung und Biegen im vereinfachten TUBOBEND-48-Modell.

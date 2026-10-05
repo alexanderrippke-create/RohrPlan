@@ -1,6 +1,6 @@
 {
   "name": "rohrplan",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Lokale Desktop-App zur isometrischen Rohr- und Biegeplanung",
   "main": "electron/main.cjs",
   "private": true,

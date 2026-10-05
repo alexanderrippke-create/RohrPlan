@@ -1,3 +1,13 @@
+# RohrPlan 0.1.6 – Biegesimulation und Kollisionswarnungen
+
+- Biegesimulation mit Vorschub, Futterdrehung und Biegen im vereinfachten TUBOBEND-48-Modell.
+- Maschinenkontakte pro Biegung mit Bauteil und Bewegung in der Biegedaten-Tabelle und im PDF.
+- Ereignisliste, markierte Rohrstellen und optionales Anhalten bei Warnungen in der Simulation.
+- Bodenprüfung, Umkehren der Biegefolge und Vergleich beider Richtungen anhand des Bodenabstands.
+- Korrigierte ISO-Projektion und Biegearmorientierung; gemeinsame Ablaufgeometrie für Tabelle und Vorschau.
+- Gemessene Maschinenmaße und alle benötigten Laufzeitdateien im Installer.
+- Unvollständige Prüfungen werden gekennzeichnet. Maschinenprüfung gegen vereinfachte Außenhüllen, bislang im Uhrzeigersinn; genaue Spannbacken, Rahmenstützen und Armrücklauf fehlen noch.
+
 # RohrPlan 0.1.5 – Rohr-Tabs, einzelne Isometrien und verbesserte Biegeskizzen
 
 ## Neue Funktionen

@@ -1,6 +1,6 @@
 {
   "name": "rohrplan",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Lokale Desktop-App zur isometrischen Rohr- und Biegeplanung",
   "main": "electron/main.cjs",
   "private": true,
@@ -27,7 +27,12 @@
       "zeichenfeld.js",
       "electron/**/*",
       "vendor/**/*",
-      "package.json"
+      "package.json",
+      "bend-*.js",
+      "tubobend-48-machine-data.js",
+      "TUBOBEND_48_Modellvorschau.html",
+      "TUBOBEND_48_Kollisionsmessung.html",
+      "TUBOBEND_48_Maschinenmodell.json"
     ],
     "win": {
       "target": "nsis"

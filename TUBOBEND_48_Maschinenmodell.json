@@ -1,0 +1,302 @@
+{
+  "format": "rohrplan-machine-model",
+  "version": 1,
+  "machine": "Tracto-Technik TUBOBEND 48",
+  "units": "mm",
+  "accuracy": "user-measured-envelope-with-schematic-components",
+  "origin": "tube-center-at-bend-start-tangent",
+  "axes": {
+    "x": "towards-free-bending-side",
+    "y": "left-looking-from-chuck-towards-bend; up-in-confirmed-plan",
+    "z": "up"
+  },
+  "centerHeight": 1150,
+  "bendDirection": "clockwise",
+  "components": [
+    {
+      "id": "body",
+      "kind": "box",
+      "min": [
+        -455,
+        -340,
+        -730
+      ],
+      "max": [
+        20,
+        375,
+        -86
+      ],
+      "status": "measured-bounding-box"
+    },
+    {
+      "id": "guide-top",
+      "kind": "surface",
+      "min": [
+        -6800,
+        -92.5,
+        -68
+      ],
+      "max": [
+        -500,
+        92.5,
+        -68
+      ],
+      "status": "measured-top-surface-lateral-position-assumed",
+      "assumptions": [
+        "Centered below tube axis; lateral offset not measured"
+      ],
+      "missing": [
+        "Frame height and supports"
+      ]
+    },
+    {
+      "id": "chuck-front",
+      "kind": "cylinder",
+      "center": [
+        -305,
+        0,
+        0
+      ],
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "radius": 62.5,
+      "status": "measured-cylinder",
+      "missing": [],
+      "length": 200,
+      "frontCenter": [
+        -305,
+        0,
+        0
+      ],
+      "rearCenter": [
+        -505,
+        0,
+        0
+      ],
+      "nearestFrontCenter": [
+        -305,
+        0,
+        0
+      ],
+      "farthestFrontCenter": [
+        -598,
+        0,
+        0
+      ],
+      "farthestRearCenter": [
+        -798,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "bend-die",
+      "kind": "cylinder",
+      "outerRadius": 50,
+      "height": 30,
+      "status": "rough-groove-height-assumed",
+      "missing": [
+        "Groove vertical location"
+      ],
+      "center": [
+        0,
+        -50,
+        0
+      ]
+    },
+    {
+      "id": "bending-head",
+      "kind": "rotating-envelope",
+      "status": "measured-outer-envelope",
+      "missing": [
+        "Fixed clamp contours",
+        "Drive cylinder axial length and axial location",
+        "Arm vertical cross section"
+      ],
+      "min": [
+        -90,
+        -50,
+        -68
+      ],
+      "max": [
+        90,
+        410,
+        222
+      ],
+      "assumptions": [
+        "Conservative rectangular envelope for the complete moving assembly; exact component positions inside it are not measured."
+      ],
+      "boundsRelativeToRollAxis": {
+        "min": [
+          -90,
+          0,
+          -68
+        ],
+        "max": [
+          90,
+          460,
+          222
+        ]
+      }
+    },
+    {
+      "id": "bend-arm",
+      "kind": "rotating-arm-envelope",
+      "length": 460,
+      "maxAngleDegrees": 190,
+      "zeroOrientation": "cylinder-above-C-in-confirmed-plan",
+      "pivot": "C",
+      "position": [
+        0,
+        -50,
+        0
+      ],
+      "status": "measured-width-and-reach-schematic-shape",
+      "missing": [
+        "Actual bar length separately from complete assembly reach",
+        "Drive cylinder axial length and position",
+        "Arm vertical cross section"
+      ],
+      "zeroVector": [
+        0,
+        1,
+        0
+      ],
+      "previewRotationSign": 1,
+      "rotatingAssemblyIncludesDriveCylinder": true,
+      "measurementWDefinition": "Roll-axis center to furthest point of complete rotating assembly including drive cylinder",
+      "measurementWStatus": "user-measured-including-drive-cylinder",
+      "width": 40,
+      "cylinderWidth": 105,
+      "maxWidth": 180
+    }
+  ],
+  "floorZ": -1150,
+  "measurements": {
+    "format": "rohrplan-machine-measurements",
+    "version": 1,
+    "machine": "Tracto-Technik TUBOBEND 48",
+    "units": "mm",
+    "origin": "tube-center-at-bend-start-tangent",
+    "measurementUnits": {
+      "X": "degree"
+    },
+    "measurements": {
+      "A": 1150,
+      "B": 600,
+      "C": 800,
+      "D": 30,
+      "E": 120,
+      "F": 300,
+      "G": 700,
+      "H": 6000,
+      "I": 150,
+      "J": 30,
+      "K": 305,
+      "L": 150,
+      "M": 305,
+      "N": 100,
+      "P": 30,
+      "Q": 450,
+      "R": 400,
+      "S": 60,
+      "T": 50,
+      "U": 100,
+      "V": 200,
+      "W": 400,
+      "X": 200,
+      "Y": 150,
+      "Z": 305
+    },
+    "bendDirection": "clockwise",
+    "serial": "",
+    "notes": "Biegung im Uhrzeigersinn. Aktuelles Werkzeug: Mittellinien-Biegeradius 50 mm für Rohr Ø 25 mm. Arm bei 0° parallel zu V; Schwenkbereich links von V.",
+    "tooling": {
+      "tubeOuterDiameter": 25,
+      "centerlineRadius": 50,
+      "rollAxis": [
+        0,
+        -50,
+        0
+      ],
+      "grooveHeightStatus": "centered-for-preview",
+      "axisPlacementStatus": "derived-from-confirmed-plan-and-tool-centerline-radius"
+    },
+    "status": "legacy-superseded-where-covered-by-collisionMeasurements"
+  },
+  "bendingSide": "right-of-roll-axis-in-confirmed-plan",
+  "armZeroOrientation": "cylinder-above-C-in-confirmed-plan",
+  "armZeroAxisSense": "positive-Y",
+  "tooling": {
+    "tubeOuterDiameter": 25,
+    "centerlineRadius": 50,
+    "rollAxis": [
+      0,
+      -50,
+      0
+    ],
+    "grooveHeightStatus": "centered-for-preview",
+    "axisPlacementStatus": "derived-from-confirmed-plan-and-tool-centerline-radius"
+  },
+  "collisionMeasurements": {
+    "format": "rohrplan-machine-collision-measurements",
+    "version": 1,
+    "machine": "Tracto-Technik TUBOBEND 48",
+    "units": {
+      "length": "mm",
+      "angle": "degree"
+    },
+    "references": {
+      "C": "roll-axis-center",
+      "O": "tube-center-at-bend-start-tangent",
+      "planOrientation": "tube-feed-from-left-cylinder-above-C",
+      "heightOrigin": "tube-center"
+    },
+    "groups": {
+      "M1": {
+        "reachFromRollAxis": 460
+      },
+      "M2": {
+        "cylinderWidth": 105,
+        "armWidth": 40,
+        "dieWidth": 100,
+        "maxWidth": 180
+      },
+      "M7": {
+        "maxSwingAngle": 190
+      },
+      "M3": {
+        "aboveTubeCenter": 222,
+        "belowTubeCenter": 68
+      },
+      "M5": {
+        "leftFromRollAxis": 455,
+        "rightFromRollAxis": 20,
+        "upFromRollAxis": 425,
+        "downFromRollAxis": 290,
+        "topZFromTubeCenter": -86,
+        "bottomZFromTubeCenter": -730
+      },
+      "M4": {
+        "nearestFrontToTangent": 305,
+        "farthestFrontToTangent": 598,
+        "outerDiameter": 125,
+        "axialLength": 200
+      },
+      "M6": {
+        "startToTangent": 500,
+        "endToTangent": 6800,
+        "width": 185,
+        "topBelowTubeCenter": 68
+      }
+    }
+  },
+  "measurementSource": "TUBOBEND_48_Kollisionsmessdaten.json",
+  "measurementNotes": [
+    "User corrected M5.leftFromRollAxis to 455 mm and supplied M2.armWidth = 40 mm.",
+    "Envelope measurements define simplified bounds; component contours, cylinder length, guide supports and groove height remain schematic."
+  ]
+}

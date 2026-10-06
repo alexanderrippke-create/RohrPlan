@@ -260,3 +260,11 @@ Aktuell werden Rohr-Stammdaten lokal im Browser gespeichert. Isometrien lassen s
 - [x] Dunkle neutrale Flächen, größere Beschriftungen und zusammengehörige Werkzeuge.
 - [x] Neue Aufteilung vom Anwender bestätigt und im Windows-Installer von Version 1.0.0 enthalten.
 - [x] Projektfenster, Biegedaten, Simulation, Stammdaten und Maßskizze an die graublaue Oberfläche angepasst. Version 1.0.0 am 06.10.2026 auf GitHub als aktuelles Windows-Update veröffentlicht; Installer, Blockmap und latest.yml sind vorhanden. Release: https://github.com/alexanderrippke-create/RohrPlan/releases/tag/v1.0.0.
+
+### Biegerichtung aus den Stammdaten · lokale Korrektur nach 1.0.0
+
+- [x] Simulation übernimmt die gespeicherte Biegerichtung der aktiven Maschine, einschließlich Gegen Uhrzeigersinn.
+- [x] Rolle, Bett, Arm und Zylinder zur Rohrlinie spiegeln; Bodenprüfung und Maschinenkontaktprüfung verwenden dieselbe Richtung.
+- [x] Beim Maschinenwechsel die geöffnete Simulation mit den aktuellen Stammdaten neu laden.
+- [x] Futterdrehrichtung bei positiven Winkeln als eigene Maschineneinstellung ergänzen; direkt in Simulation, Bodenprüfung, Maschinenkontakten und Biegefolge-Empfehlung übernehmen.
+- Die Änderung ist im lokalen Quellstand umgesetzt; in der veröffentlichten Version 1.0.0 noch nicht enthalten. Funktionaler Vergleich anhand von Beispielrohren steht aus.

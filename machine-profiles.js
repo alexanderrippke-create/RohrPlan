@@ -18,11 +18,33 @@
   return {cylinder:start<end?{min:[bounds.min[0],start,bounds.min[2]],max:[bounds.max[0],end,bounds.max[2]]}:null,
    arm:{min:[-arm.width/2,0,bounds.min[2]],max:[arm.width/2,end,bounds.max[2]]}};
  }
+ // Measurements describe the drawing's clockwise reference layout. The
+ // opposite tooling arrangement is its reflection across the tube axis.
+ const bendSign=model=>model.bendDirection==='counterclockwise'?-1:1;
+ // Positive chuck positions follow the saved direction, viewed from the
+ // chuck towards the die. All consumers use the same shortest rotation.
+ function chuckRotationDelta(next,previous,direction='clockwise'){
+  const degrees=((next-previous+180)%360+360)%360-180;
+  return degrees*Math.PI/180*(direction==='counterclockwise'?-1:1);
+ }
+ const rollCenter=(model,radius)=>[0,-bendSign(model)*radius,0];
+ function armTransform(model,radius,angleDegrees){
+  const sign=bendSign(model),center=rollCenter(model,radius),angle=angleDegrees*Math.PI/180,c=Math.cos(angle),s=Math.sin(angle);
+  return {center,
+   toWorld:p=>[p[0]*c+p[1]*s+center[0],sign*(-p[0]*s+p[1]*c)+center[1],p[2]+center[2]],
+   toLocal:p=>{const x=p[0]-center[0],y=sign*(p[1]-center[1]);return [x*c-y*s,x*s+y*c,p[2]-center[2]];}};
+ }
+ function bodyBounds(model,radius){
+  const body=model.components.find(c=>c.id==='body'),shift=rollCenter(model,radius)[1]-model.tooling.rollAxis[1];
+  return {min:body.min.map((v,i)=>v+(i===1?shift:0)),max:body.max.map((v,i)=>v+(i===1?shift:0))};
+ }
  function validate(input){
   if(!input||typeof input.name!=='string'||!input.name.trim())throw Error('Bitte einen Maschinennamen eingeben.');
   if(input.name.trim().length>100)throw Error('Der Maschinenname darf höchstens 100 Zeichen haben.');
   if(!Number.isFinite(input.centerHeight)||input.centerHeight<=0)throw Error('Die Rohrmittellinienhöhe muss größer als 0 mm sein.');
   if(!['clockwise','counterclockwise'].includes(input.bendDirection))throw Error('Bitte eine Biegerichtung auswählen.');
+  const chuckRotationDirection=input.chuckRotationDirection===undefined?'clockwise':input.chuckRotationDirection;
+  if(!['clockwise','counterclockwise'].includes(chuckRotationDirection))throw Error('Bitte eine Futterdrehrichtung auswählen.');
   const groups={};
   for(const [group,names] of Object.entries(fields)){
    groups[group]={};
@@ -40,7 +62,7 @@
   if(c.farthestFrontToTangent<c.nearestFrontToTangent)throw Error('Der hintere Futterabstand darf nicht kleiner als der nahe Abstand sein.');
   if(g.endToTangent<=g.startToTangent)throw Error('Das Rahmenende muss weiter von O entfernt sein als der Rahmenanfang.');
   if(b.bottomZFromTubeCenter>=b.topZFromTubeCenter||b.leftFromRollAxis+b.rightFromRollAxis<=0||b.upFromRollAxis+b.downFromRollAxis<=0)throw Error('Bitte die Außenmaße des Maschinenbetts prüfen.');
-  return {id:typeof input.id==='string'?input.id:'',name:input.name.trim(),manufacturer:String(input.manufacturer||'').trim().slice(0,100),centerHeight:input.centerHeight,bendDirection:input.bendDirection,measurements:{...clone(template.collisionMeasurements),machine:input.name.trim(),groups}};
+  return {id:typeof input.id==='string'?input.id:'',name:input.name.trim(),manufacturer:String(input.manufacturer||'').trim().slice(0,100),centerHeight:input.centerHeight,bendDirection:input.bendDirection,chuckRotationDirection,measurements:{...clone(template.collisionMeasurements),machine:input.name.trim(),groups}};
  }
  function defaultMachine(){return validate({id:'tubobend-48',name:'TUBOBEND 48',manufacturer:'Tracto-Technik',centerHeight:template.centerHeight,bendDirection:template.bendDirection,measurements:clone(template.collisionMeasurements)});}
  let state={version:1,activeId:'tubobend-48',machines:[defaultMachine()]},loadError='';
@@ -76,7 +98,7 @@
   if(!Number.isFinite(radius)||radius<=0||!Number.isFinite(diameter)||diameter<=0)throw Error('Biegeradius und Rohrdurchmesser müssen größer als 0 mm sein.');
   const {M1:a,M2:w,M3:h,M4:c,M5:b,M6:g,M7:s}=machine.measurements.groups,C=[0,-radius,0];
   Object.assign(result.tooling,{centerlineRadius:radius,tubeOuterDiameter:diameter,rollAxis:C});
-  result.machine=machine.name;result.machineProfileId=machine.id;result.centerHeight=machine.centerHeight;result.floorZ=-machine.centerHeight;result.bendDirection=machine.bendDirection;
+  result.machine=machine.name;result.machineProfileId=machine.id;result.machineProfile=clone(machine);result.centerHeight=machine.centerHeight;result.floorZ=-machine.centerHeight;result.bendDirection=machine.bendDirection;result.chuckRotationDirection=machine.chuckRotationDirection;
   result.collisionMeasurements=clone(machine.measurements);result.measurementSource='saved-machine-profile';result.measurements=null;result.measurementNotes=[];
   result.collisionMeasurements.groups.M2.dieWidth=2*radius;
   Object.assign(p('body'),{min:[-b.leftFromRollAxis,C[1]-b.downFromRollAxis,b.bottomZFromTubeCenter],max:[b.rightFromRollAxis,C[1]+b.upFromRollAxis,b.topZFromTubeCenter]});
@@ -86,7 +108,16 @@
   Object.assign(p('bending-head'),{boundsRelativeToRollAxis:bounds,min:bounds.min.map((v,i)=>v+C[i]),max:bounds.max.map((v,i)=>v+C[i])});
   Object.assign(p('bend-arm'),{length:a.reachFromRollAxis,width:w.armWidth,cylinderWidth:w.cylinderWidth,maxWidth:w.maxWidth,maxAngleDegrees:s.maxSwingAngle});
   Object.assign(p('bend-die'),{outerRadius:radius,center:C});p('bend-arm').position=C;
+  if(machine.bendDirection==='counterclockwise'){
+   const reflect=point=>[point[0],-point[1],point[2]];
+   result.tooling.rollAxis=reflect(result.tooling.rollAxis);
+   for(const component of result.components){
+    if(component.min&&component.max){const min=component.min,max=component.max;component.min=[min[0],-max[1],min[2]];component.max=[max[0],-min[1],max[2]];}
+    for(const field of ['center','position','frontCenter','rearCenter','nearestFrontCenter','farthestFrontCenter','farthestRearCenter','zeroVector'])if(component[field])component[field]=reflect(component[field]);
+   }
+  }
+  result.armZeroAxisSense=machine.bendDirection==='counterclockwise'?'negative-Y':'positive-Y';
   return result;
  }
- window.RohrPlanMachines={getActive,list:()=>clone(state.machines),save,select,model,validate,movingBounds,getTooling,setTooling,subscribeTooling:listener=>toolingListeners.add(listener),subscribe:listener=>listeners.add(listener),getLoadError:()=>loadError};
+ window.RohrPlanMachines={getActive,list:()=>clone(state.machines),save,select,model,validate,movingBounds,bendSign,chuckRotationDelta,rollCenter,armTransform,bodyBounds,getTooling,setTooling,subscribeTooling:listener=>toolingListeners.add(listener),subscribe:listener=>listeners.add(listener),getLoadError:()=>loadError};
 })();

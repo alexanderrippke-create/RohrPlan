@@ -9,7 +9,7 @@
  document.querySelector('nav a[href="TUBOBEND_48_Modellvorschau.html"]')?.remove();
  document.querySelector('.hint.actions').textContent='Die Skizze gilt für eine waagerechte Biegemaschine in der gezeigten Ausrichtung. Jede Maschine wird mit eigenen Maßen gespeichert.';
  const details=document.createElement('section');details.className='card machine-identity';
- details.innerHTML='<h2>Maschine</h2><div class="machine-meta-grid"><label>Maschinenname<input id="editedMachineName" required maxlength="100" placeholder="z. B. Biegemaschine 2"></label><label>Hersteller (optional)<input id="editedMachineManufacturer" maxlength="100"></label><label>Rohrmittellinienhöhe über Boden · mm<input id="editedMachineHeight" type="number" min="0.1" step="any" required></label><label>Biegerichtung · von oben gesehen<select id="editedMachineDirection"><option value="clockwise">Im Uhrzeigersinn</option><option value="counterclockwise">Gegen Uhrzeigersinn</option></select></label></div><p>Höhe vom Boden bis zur Rohrmitte an der Biegerolle. Die räumliche Maschinenprüfung unterstützt derzeit den Uhrzeigersinn.</p><button type="submit" class="save">Maschine speichern und auswählen</button><p id="machineEditorStatus" role="status" aria-live="polite">Maßskizze wird geladen …</p>';
+ details.innerHTML='<h2>Maschine</h2><div class="machine-meta-grid"><label>Maschinenname<input id="editedMachineName" required maxlength="100" placeholder="z. B. Biegemaschine 2"></label><label>Hersteller (optional)<input id="editedMachineManufacturer" maxlength="100"></label><label>Rohrmittellinienhöhe über Boden · mm<input id="editedMachineHeight" type="number" min="0.1" step="any" required></label><label>Biegerichtung · von oben gesehen<select id="editedMachineDirection"><option value="clockwise">Im Uhrzeigersinn</option><option value="counterclockwise">Gegen Uhrzeigersinn</option></select></label><label>Futterdrehung bei positiven Winkeln<select id="editedChuckDirection"><option value="clockwise">Im Uhrzeigersinn</option><option value="counterclockwise">Gegen Uhrzeigersinn</option></select><small>Vom Futter zur Biegerolle gesehen. Gilt direkt für Simulation und Kollisionsprüfung.</small></label></div><p>Höhe vom Boden bis zur Rohrmitte an der Biegerolle. Die Biegerichtung wird für Simulation und Kollisionsprüfung übernommen. Die Maße beschreiben die gezeigte Grundanordnung; bei Gegen Uhrzeigersinn wird sie zur Rohrlinie gespiegelt. Die Futterdrehung folgt der eigenen Auswahl und nimmt den kürzesten Weg zur angegebenen Futterstellung.</p><button type="submit" class="save">Maschine speichern und auswählen</button><p id="machineEditorStatus" role="status" aria-live="polite">Maßskizze wird geladen …</p>';
  form.prepend(details);
  const el=id=>document.getElementById(id),saveButtons=[details.querySelector('button'),form.querySelector('.toolbar .save')];
  saveButtons[1].textContent='Maschine speichern und auswählen';saveButtons.forEach(button=>button.disabled=true);
@@ -22,7 +22,7 @@
   if(event.data?.type!=='rohrplan-machine-editor-load')return;
   draft=event.data.machine;
   el('editedMachineName').value=draft.name||'';el('editedMachineManufacturer').value=draft.manufacturer||'';
-  el('editedMachineHeight').value=draft.centerHeight??'';el('editedMachineDirection').value=draft.bendDirection||'clockwise';
+  el('editedMachineHeight').value=draft.centerHeight??'';el('editedMachineDirection').value=draft.bendDirection||'clockwise';el('editedChuckDirection').value=draft.chuckRotationDirection||'clockwise';
   for(const {input,group,name,factor,derived} of fields){if(derived)continue;const value=draft.measurements?.groups?.[group]?.[name];input.value=Number.isFinite(value)?value/factor:'';input.required=true;}
   showRollDiameter(event.data.tooling);
   feedback(draft.id?'Gespeicherte Maße geladen. Änderungen mit „Maschine speichern und auswählen“ übernehmen.':'Neue Maschine: Namen, Höhe und alle roten Maßfelder ausfüllen.');
@@ -31,7 +31,7 @@
  form.addEventListener('submit',event=>{
   event.preventDefault();if(!draft||!form.reportValidity())return;
   try{
-   const machine=api.validate({id:draft.id,name:el('editedMachineName').value,manufacturer:el('editedMachineManufacturer').value,centerHeight:Number(el('editedMachineHeight').value),bendDirection:el('editedMachineDirection').value,measurements:values()});
+   const machine=api.validate({id:draft.id,name:el('editedMachineName').value,manufacturer:el('editedMachineManufacturer').value,centerHeight:Number(el('editedMachineHeight').value),bendDirection:el('editedMachineDirection').value,chuckRotationDirection:el('editedChuckDirection').value,measurements:values()});
    feedback('Maschine wird gespeichert …');saveButtons.forEach(button=>button.disabled=true);
    window.parent.postMessage({type:'rohrplan-machine-editor-save',machine},'*');
   }catch(error){feedback(error.message);}

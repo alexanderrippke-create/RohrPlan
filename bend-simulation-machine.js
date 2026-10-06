@@ -6,7 +6,6 @@
  'use strict';
  const EPS=1e-7;
  const at=(a,b,t)=>a.map((v,i)=>v+(b[i]-v)*t);
- const rotate=(p,a)=>[p[0]*Math.cos(a)-p[1]*Math.sin(a),p[0]*Math.sin(a)+p[1]*Math.cos(a),p[2]];
  function boxInterval(a,b,min,max,padding){
   let lo=0,hi=1;
   for(let i=0;i<3;i++){
@@ -52,9 +51,9 @@
  }
  function inspect(state,model,diameter,margin=0){
   const tubeRadius=diameter/2,padding=tubeRadius+.5+margin,hits=new Map();
-  const part=id=>model.components.find(c=>c.id===id),body=part('body'),rail=part('guide-top'),arm=part('bend-arm'),head=part('bending-head'),baseChuck=part('chuck-front');
-  const C=[0,-state.radius,0],angle=state.angle*Math.PI/180;
-  const bodyShift=C[1]-model.tooling.rollAxis[1],bodyMin=body.min.map((v,i)=>v+(i===1?bodyShift:0)),bodyMax=body.max.map((v,i)=>v+(i===1?bodyShift:0));
+  const part=id=>model.components.find(c=>c.id===id),rail=part('guide-top'),arm=part('bend-arm'),baseChuck=part('chuck-front');
+  const transform=window.RohrPlanMachines.armTransform(model,state.radius,state.angle),C=transform.center;
+  const {min:bodyMin,max:bodyMax}=window.RohrPlanMachines.bodyBounds(model,state.radius);
   const frontX=Math.max(baseChuck.farthestFrontCenter[0],Math.min(baseChuck.nearestFrontCenter[0],state.points[0][0]+baseChuck.length));
   const chuck={...baseChuck,center:[frontX,0,0]};
   // The box width includes unmeasured positions of the tool-side parts.
@@ -70,7 +69,7 @@
    const guide=boxInterval(a,b,rail.min,rail.max,padding);if(guide)record('guide-top','Führungsrahmen · Oberkante',i-1,at(a,b,(guide[0]+guide[1])/2));
    const spindle=chuckHit(a,b,chuck,tubeRadius,padding);if(spindle)record('chuck-front','Spannfutter',i-1,spindle);
    for(const [p,q]of armPieces(a,b,C,contactRadius)){
-    const local=v=>rotate(v.map((n,k)=>n-C[k]),angle),p0=local(p),p1=local(q);
+    const p0=transform.toLocal(p),p1=transform.toLocal(q);
     const moving=(bounds.cylinder&&boxInterval(p0,p1,bounds.cylinder.min,bounds.cylinder.max,padding))||boxInterval(p0,p1,bounds.arm.min,bounds.arm.max,padding);
     if(moving){record('bend-arm','Arm / Zylinder · Außenhülle',i-1,at(p,q,(moving[0]+moving[1])/2));break;}
    }

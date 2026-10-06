@@ -33,3 +33,9 @@ pnpm run dist
 ```
 
 Der Installer wird im Ordner `release` abgelegt.
+
+## App- und Desktop-Symbol
+
+Das RohrPlan-Logo liegt unter `assets`. `rohrplan.ico` enthält Windows-Symbolgrößen von 16 bis 256 Pixeln. Es wird als Programmsymbol, Fenstersymbol sowie Installer- und Deinstallationssymbol verwendet. Der Installer legt eine Desktop-Verknüpfung namens RohrPlan an. Die Browserversion verwendet `assets/favicon.png`.
+
+Die freigegebene Bildquelle und der Generierungsprompt sind unter `assets/rohrplan-logo-source.png` und `assets/README.md` gespeichert. Mit Python und Pillow erzeugt `assets/create-icons.py` die Icon-Dateien erneut.

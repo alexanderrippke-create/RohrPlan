@@ -1,3 +1,15 @@
+# RohrPlan 1.0.1 – Drehrichtungen und App-Symbol
+
+- Simulation im Uhrzeigersinn und gegen Uhrzeigersinn entsprechend der ausgewählten Maschine.
+- Rolle, Maschinenbett, Arm und Zylinder für die Gegenrichtung zur Rohrlinie spiegeln.
+- Dieselbe Biegerichtung für Bodenprüfung, Maschinenkontakte und Warnungsmarkierungen verwenden.
+- Stammdaten beim Öffnen der Simulation übernehmen und bei Maschinenwechsel aktualisieren.
+- Die Demo verwendet die im Modell angezeigte Maschine; Simulationsdateien behalten ihr gespeichertes Maschinenprofil.
+- Eigene Einstellung „Futterdrehung bei positiven Winkeln“ pro Maschine: Uhrzeigersinn oder Gegen Uhrzeigersinn, vom Futter zur Biegerolle gesehen.
+- Futterbewegung direkt für Simulation, Maschinenkontakte, Bodenprüfung und Biegefolge-Empfehlung verwenden; kürzesten Drehweg beibehalten.
+- Bestehende Maschinen ohne die neue Einstellung behalten Uhrzeigersinn; Biegedaten und Simulation zeigen den gewählten Drehsinn an.
+- Neues RohrPlan-Logo als Windows-App-Symbol, Desktop-Symbol, Installer-Symbol und Browser-Favicon.
+
 # RohrPlan 1.0.0 – Neue Oberfläche und Maschinenverwaltung
 
 - CAD-Werkzeugleiste, linke Projekt-/Rohrübersicht und direkte Ansichtstasten.

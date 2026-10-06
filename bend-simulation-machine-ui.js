@@ -24,10 +24,10 @@
  };
  function phasesFor(current){return current.phases;}
  function demoState(){
-  const radius=data.tooling.centerlineRadius,a=armAngle*Math.PI/180,count=Math.max(1,Math.ceil(armAngle/2));
+  const radius=data.tooling.centerlineRadius,a=armAngle*Math.PI/180,count=Math.max(1,Math.ceil(armAngle/2)),sign=window.RohrPlanMachines.bendSign(data);
   const points=[[-600,0,0],[0,0,0]];
-  for(let i=1;i<=count;i++){const t=a*i/count;points.push([radius*Math.sin(t),-radius*(1-Math.cos(t)),0]);}
-  const end=points.at(-1),remaining=600-radius*a;points.push([end[0]+remaining*Math.cos(a),end[1]-remaining*Math.sin(a),0]);
+  for(let i=1;i<=count;i++){const t=a*i/count;points.push([radius*Math.sin(t),-sign*radius*(1-Math.cos(t)),0]);}
+  const end=points.at(-1),remaining=600-radius*a;points.push([end[0]+remaining*Math.cos(a),end[1]-sign*remaining*Math.sin(a),0]);
   return {points,radius,angle:armAngle,rotation:0,phase:'Biegen',number:1};
  }
  function currentState(){return sequence?sequenceGeometry(sequenceTime):demoState();}
@@ -39,10 +39,10 @@
  function drawWarningOverlay(state,hits){
   if(!hits.length)return;
   const hitIds=new Set(hits.map(h=>h.id)),part=id=>data.components.find(c=>c.id===id);
-  if(hitIds.has('body')){const b=part('body'),shift=data.tooling.centerlineRadius-state.radius;drawBox(b.min.map((v,i)=>v+(i===1?shift:0)),b.max.map((v,i)=>v+(i===1?shift:0)),'#d63828',true);}
+  if(hitIds.has('body')){const b=window.RohrPlanMachines.bodyBounds(data,state.radius);drawBox(b.min,b.max,'#d63828',true);}
   if(hitIds.has('guide-top')){const b=part('guide-top');drawBox(b.min,b.max,'#d63828',true);}
   if(hitIds.has('bend-arm')){
-   const bounds=window.RohrPlanMachines.movingBounds(data,state.radius),C=[0,-state.radius,0],turn=p=>rotateZ(p,-state.angle*Math.PI/180).map((v,i)=>v+C[i]);
+   const bounds=window.RohrPlanMachines.movingBounds(data,state.radius),turn=window.RohrPlanMachines.armTransform(data,state.radius,state.angle).toWorld;
    if(bounds.cylinder)drawBox(bounds.cylinder.min,bounds.cylinder.max,'#d63828',true,turn);
    drawBox(bounds.arm.min,bounds.arm.max,'#d63828',true,turn);
   }
@@ -93,7 +93,7 @@
  loadSequence=function(payload){
   oldLoad(payload);revision++;sequence.phases=phasesFor(sequence);beginReview();
  };
- function loadDemo(){loadSequence({format:'rohrplan-bend-simulation',version:1,name:'Demo-Rohr',cutLength:1200,tubeOuterDiameter:data.tooling.tubeOuterDiameter,centerHeight:data.centerHeight,bends:[{number:1,angleDegrees:Number(el('targetAngle').value)||90,radius:data.tooling.centerlineRadius,position:600,rotation:0}]});}
+ function loadDemo(){loadSequence({format:'rohrplan-bend-simulation',version:1,name:'Demo-Rohr',cutLength:1200,tubeOuterDiameter:data.tooling.tubeOuterDiameter,centerHeight:data.centerHeight,machineProfile:data.machineProfile,bends:[{number:1,angleDegrees:Number(el('targetAngle').value)||90,radius:data.tooling.centerlineRadius,position:600,rotation:0}]});}
  check.onclick=()=>{if(!sequence)loadDemo();else beginReview();};
  el('playBend').onclick=async()=>{
   if(playing){stopAnimation();return;}

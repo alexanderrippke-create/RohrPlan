@@ -138,6 +138,7 @@ function createWindow() {
     minWidth: 900,
     minHeight: 650,
     title: 'RohrPlan',
+    icon: path.join(__dirname, '..', 'assets', 'rohrplan.ico'),
     backgroundColor: '#252c36',
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),

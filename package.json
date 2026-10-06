@@ -1,6 +1,6 @@
 {
   "name": "rohrplan",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Lokale Desktop-App zur isometrischen Rohr- und Biegeplanung",
   "main": "electron/main.cjs",
   "private": true,
@@ -21,6 +21,9 @@
     "directories": {
       "output": "release"
     },
+    "extraResources": [
+      { "from": "assets/rohrplan.ico", "to": "rohrplan.ico" }
+    ],
     "files": [
       "zeichenfeld.html",
       "zeichenfeld.css",
@@ -28,6 +31,9 @@
       "workspace.css",
       "dialog-theme.css",
       "workspace-ui.js",
+      "assets/rohrplan.ico",
+      "assets/rohrplan.png",
+      "assets/favicon.png",
       "electron/**/*",
       "vendor/**/*",
       "package.json",
@@ -39,6 +45,7 @@
       "machine-*.js"
     ],
     "win": {
+      "icon": "assets/rohrplan.ico",
       "target": "nsis"
     },
     "publish": [
@@ -51,7 +58,11 @@
     ],
     "nsis": {
       "oneClick": false,
-      "allowToChangeInstallationDirectory": true
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "assets/rohrplan.ico",
+      "uninstallerIcon": "assets/rohrplan.ico",
+      "createDesktopShortcut": true,
+      "shortcutName": "RohrPlan"
     },
     "artifactName": "RohrPlan-Setup-${version}.${ext}"
   }

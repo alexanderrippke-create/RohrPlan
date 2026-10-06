@@ -33,6 +33,16 @@ Die Werkzeugleiste ist in Datei, Zeichnen, Biegen und Ansicht gegliedert. Links 
 
 Unter Ansicht stehen ISO-Ansicht, Alles anzeigen, Zoom und Raster zur Verfügung. Die wichtigsten Ansichtstasten sind zusätzlich direkt im Zeichenfeld erreichbar. Rückgängig, Wiederherstellen und Speichern bleiben oben im Schnellzugriff. Biegedaten und PDF-Ausgabe werden über Biegen → Biegedaten geöffnet.
 
+## Biegerichtung der Maschine
+
+Unter **Stammdaten → Maschinen → Maßskizze / Maschine bearbeiten** wird die Biegerichtung von oben gesehen gespeichert. Simulation, Bodenprüfung und Maschinenkontaktprüfung übernehmen diese Einstellung von der ausgewählten Maschine. Unterstützt werden Biegungen im Uhrzeigersinn und gegen Uhrzeigersinn.
+
+Die Maßskizze beschreibt die Grundanordnung im Uhrzeigersinn. Bei Gegen Uhrzeigersinn wird das Maschinenmodell zur Rohrlinie gespiegelt; Rolle, Arm und Zylinder folgen der Gegenrichtung. Wird die aktive Maschine geändert, erhält auch eine bereits geöffnete Simulation die neuen Stammdaten und beginnt erneut bei 0.
+
+**Futterdrehung bei positiven Winkeln** ist eine eigene Einstellung im Maschineneditor: Uhrzeigersinn oder Gegen Uhrzeigersinn, vom Futter zur Biegerolle gesehen. Die Futterstellungen bleiben Zahlen ab 0°; die ausgewählte Richtung bestimmt ihre räumliche Umsetzung. Das Futter nimmt den kürzesten Weg zur nächsten Stellung. Simulation, Maschinenkontakte, Bodenprüfung und Biegefolge-Empfehlung berücksichtigen diese Bewegung. Bereits gespeicherte Maschinen und alte Simulationsdateien ohne dieses Feld behalten Uhrzeigersinn.
+
+Exportierte Simulationsdateien enthalten den Maschinenstand zum Exportzeitpunkt. Beim separaten Laden verwenden sie diese Kopie; ältere Dateien ohne Maschinenprofil verwenden die aktive Maschine.
+
 ## Updates
 
 Die installierte App prüft beim Start und danach regelmäßig auf eine neue GitHub-Release. Eine Release muss den von electron-builder erstellten Windows-Installer und die Update-Metadaten enthalten.

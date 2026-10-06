@@ -25,14 +25,13 @@
   el('machineCollisionSummary').textContent=window.RohrPlanMachines.getActive().name+' · Maschinenprüfung: '+(report.complete?(affected.length?'Warnungen bei Biegung '+affected.join(', ')+'. ':'Keine Maschinenwarnung im geprüften Ablauf erkannt. '):'Nicht abgeschlossen. '+(report.reason||'')+' ')+limitation;
   el('machineCollisionSummary').classList.toggle('machine-warning-summary',affected.length>0||!report.complete);
  }
- function run(payload,direction){
-  const key=JSON.stringify([payload,direction]);
+ function run(payload){
+  const key=JSON.stringify(payload);
   if(job?.key===key)return job.promise;
   const id=revision;
   const promise=Promise.resolve().then(async()=>{
    try{
     if(id!==revision)return null;
-    if(direction!=='clockwise')throw Error('Das gemessene Maschinenmodell gilt für die Biegung im Uhrzeigersinn. Maschinenkontakte in Gegenrichtung sind nicht geprüft.');
     if(!window.RohrPlanTubobend48Model||!window.RohrPlanBendSequence||!window.RohrPlanMachineCollision)throw Error('Die Dateien der Maschinenprüfung konnten nicht geladen werden. Bitte die Seite neu laden.');
     let report=cache.get(key);
     if(!report){

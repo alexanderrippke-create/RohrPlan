@@ -258,5 +258,5 @@ Aktuell werden Rohr-Stammdaten lokal im Browser gespeichert. Isometrien lassen s
 - [x] Linke Übersicht für Projekt, geöffnete Rohre, Rohrdatensatz und Maschine; ein- und ausblendbar.
 - [x] Direkte Ansichtstasten für ISO, Alles anzeigen, Zoom und Raster.
 - [x] Dunkle neutrale Flächen, größere Beschriftungen und zusammengehörige Werkzeuge.
-- [x] Neue Aufteilung vom Anwender bestätigt. Lokal im Browser bereit; noch nicht in die installierte Windows-App übernommen.
-- [x] Projektfenster, Biegedaten, Simulation, Stammdaten und Maßskizze an die graublaue Oberfläche angepasst. Veröffentlichung von Version 1.0.0 am 06.10.2026 vom Anwender freigegeben; Windows-Installer und Update-Metadaten werden bereitgestellt.
+- [x] Neue Aufteilung vom Anwender bestätigt und im Windows-Installer von Version 1.0.0 enthalten.
+- [x] Projektfenster, Biegedaten, Simulation, Stammdaten und Maßskizze an die graublaue Oberfläche angepasst. Version 1.0.0 am 06.10.2026 auf GitHub als aktuelles Windows-Update veröffentlicht; Installer, Blockmap und latest.yml sind vorhanden. Release: https://github.com/alexanderrippke-create/RohrPlan/releases/tag/v1.0.0.

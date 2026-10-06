@@ -1,0 +1,141 @@
+/* CAD workspace: compact ribbon, persistent overview, unobstructed canvas. */
+:root{--bg:#252c36;--panel:#303945;--line:#485361;--text:#e6ecf3;--muted:#a3b0c0;--lime:#8dcef7;--lime2:#c4e6fb;--teal:#91cbd2;--amber:#e5bc72;--red:#ee9d92;color-scheme:dark}
+body{font:13px/1.5 "Segoe UI",Arial,sans-serif}
+.app{height:100dvh;min-height:500px;overflow:hidden}
+[hidden]{display:none!important}
+.icon-sprite{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
+.ui-icon{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}
+.app-titlebar{height:40px;flex:none;display:flex;align-items:center;gap:20px;padding:0 14px;background:#222a34;border-bottom:1px solid #404b59}
+.app-brand{display:flex;align-items:center;gap:9px;white-space:nowrap}
+.app-brand>.ui-icon{color:#89caef;width:25px;height:25px}
+.app-brand strong{font-size:12px;letter-spacing:.1em;font-weight:650}
+.app-brand>span:last-child{font-size:11px;color:#a8b6c6}
+.brand-divider,.quick-divider{width:1px;height:19px;background:#4b5664;flex:none}
+.document-title{margin-left:auto;max-width:40vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#bdc8d7;font-size:12px}
+.quick-actions{display:flex;align-items:center;gap:4px}
+.quick-divider{margin:0 5px}
+.quick-button{display:grid;place-items:center;width:30px;height:28px;padding:4px;border:1px solid transparent;border-radius:3px;background:transparent;color:#c5d0de;cursor:pointer}
+.quick-button .ui-icon{width:18px;height:18px}
+.quick-button:hover{background:#465365;color:white}
+.quick-button:disabled{opacity:.3;cursor:default}
+.quick-button:disabled:hover{background:transparent}
+.ribbon{flex:none;background:#35404d;border-bottom:1px solid #161e28}
+.ribbon-tabs{display:flex;align-items:stretch;gap:8px;height:32px;padding:0 15px;background:#303945}
+.ribbon-tabs>button{min-width:84px;padding:4px 14px;background:transparent;color:#b8c4d4;border:0;border-bottom:3px solid transparent;cursor:pointer;font:600 11px "Segoe UI",Arial,sans-serif;letter-spacing:.03em;text-transform:uppercase}
+.ribbon-tabs>button:hover{background:#3d4a59;color:white}
+.ribbon-tabs>button[aria-selected=true]{color:#eef8ff;border-bottom-color:#8dcef7;background:#35404d}
+.ribbon-panels{height:98px}
+.ribbon-panel{height:100%;display:flex;align-items:stretch;padding:6px 14px 4px;gap:14px;overflow-x:auto}
+.ribbon-group{flex:none;display:flex;flex-direction:column;justify-content:space-between;padding-right:14px;border-right:1px solid #526071}
+.ribbon-group-tools{display:flex;align-items:stretch;gap:5px;height:66px}
+.ribbon-button.button{min-width:95px;max-width:128px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:1px solid transparent;border-radius:4px;background:transparent;padding:5px 9px;color:#e1e8f2;font:12px/1.15 "Segoe UI",Arial,sans-serif;text-align:center}
+.ribbon-button>.ui-icon{width:29px;height:29px;color:#9ed4f4;stroke-width:1.5}
+.ribbon-label{min-height:14px;white-space:nowrap}
+.ribbon-button.button:hover{background:#485969;border-color:#718ca2}
+.ribbon-button.button:disabled{opacity:.35;background:transparent;border-color:transparent;cursor:not-allowed}
+#clear>.ui-icon{color:#d6a69e}
+#toggleGrid[aria-pressed=true]{background:#46596c;border-color:#688ba5}
+.ribbon-group-name{font-size:10px;color:#afbccb;text-align:center;letter-spacing:.02em;line-height:17px}
+.ribbon-explanation{display:flex;flex-direction:column;justify-content:center;gap:5px;padding:0 10px;min-width:160px;max-width:390px;color:#adbacc;font-size:11px;line-height:1.5}
+.ribbon-explanation strong{font-size:12px;font-weight:500;color:#d8e3ee}
+.workbench{flex:1;min-height:0;display:grid;grid-template-columns:246px minmax(0,1fr)}
+.workspace-overview{display:flex;flex-direction:column;min-height:0;overflow-y:auto;overscroll-behavior:contain;background:#2b3440;border-right:1px solid #4a5665}
+.overview-heading{height:37px;min-height:37px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:#333e4c;border-bottom:1px solid #4a5665}
+.overview-heading h2{font-size:10px;font-weight:650;letter-spacing:.09em;text-transform:uppercase;margin:0;color:#bccada}
+.overview-unit{font-size:10px;color:#8b9bad;border:1px solid #546274;border-radius:3px;padding:0 5px}
+.overview-section{padding:14px 14px 15px;border-bottom:1px solid #424e5e}
+.overview-section h3{margin:0 0 9px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.065em;color:#97a9bd}
+.project-overview-button{width:100%;display:flex;align-items:center;gap:9px;border:0;padding:6px 0;background:transparent;color:#dce7f2;text-align:left;cursor:pointer;font:12px "Segoe UI",Arial,sans-serif}
+.project-overview-button>.ui-icon{width:18px;height:18px;color:#a9c3da}
+.project-overview-button>span:not(.row-chevron){flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.project-overview-button:hover{color:#acdfff}
+.row-chevron{color:#99afc6;font-size:20px}
+.pipe-overview{padding-left:9px;padding-right:9px}
+.pipe-overview h3{padding-left:5px}
+.workspace-overview .pipe-tabs{flex:none;display:flex;flex-direction:column;gap:4px;overflow:visible;background:transparent;border:0;padding:0}
+.workspace-overview .pipe-tab-wrap{width:100%;display:flex;align-items:center;background:transparent;border:1px solid transparent;border-radius:4px;position:relative}
+.workspace-overview .pipe-tab-wrap::before{content:"";width:9px;height:9px;flex:none;margin-left:10px;border:1px solid #a8b9ce;border-radius:2px;transform:rotate(30deg);background:#61728b}
+.workspace-overview .pipe-tab-wrap.active{background:#3d5269;border-color:#657e99}
+.workspace-overview .pipe-tab-wrap.active::before{background:#99d5f6;border-color:#badff3}
+.workspace-overview .pipe-tab{flex:1;min-width:0;border:0;background:transparent;color:#bac9da;border-radius:0;padding:9px 7px 9px 9px;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left}
+.workspace-overview .pipe-tab[aria-selected=true]{color:white;background:transparent;border:0}
+.workspace-overview .pipe-tab-close{color:#95abc1;padding:0 8px;font-size:18px;background:transparent;margin-right:2px}
+.workspace-overview .pipe-tab-close:hover{background:#755048;color:#fff}
+.workspace-overview .pipe-tab-add{border:0;background:transparent;text-align:left;color:#97cdef;font-size:11px;border-radius:4px;padding:8px 9px;margin-top:3px}
+.workspace-overview .pipe-tab-add:hover{background:#374859;color:#ceecff}
+.overview-profile{display:block;font-size:12px;font-weight:600;line-height:1.5;color:#dae9f8;overflow-wrap:anywhere}
+.overview-secondary{display:block;margin-top:7px;font-size:11px;line-height:1.5;color:#aebdcd;overflow-wrap:anywhere}
+.overview-machine{display:block;font-size:12px;color:#d6e2ef;overflow-wrap:anywhere}
+.overview-settings.button{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;padding:7px 8px;background:#354251;border:1px solid #56687a;border-radius:4px;font-size:12px}
+.overview-settings .ui-icon{width:16px;height:16px}
+.overview-settings.button:hover{border-color:#8db7d5;background:#3f5166}
+.overview-bottom{margin-top:auto;padding:14px;color:#acbdcf}
+.mouse-help{margin-bottom:10px;font-size:11px;line-height:1.5}
+.mouse-help summary{cursor:pointer;color:#aabcce}
+.mouse-help dl{margin:10px 0;padding-left:10px;border-left:1px solid #536478}
+.mouse-help dt{color:#d6e1ed;font-weight:500;margin-top:8px}
+.mouse-help dd{margin:0;color:#99aabd}
+.overview-help{display:flex;width:100%;align-items:center;gap:8px;padding:6px 0;color:#b6c8da;background:transparent;border:0;font:11px "Segoe UI",Arial,sans-serif;cursor:pointer}
+.overview-help .ui-icon{width:16px;height:16px}
+.overview-help span{margin-left:auto;font-size:10px;border:1px solid #506279;padding:1px 5px;border-radius:3px}
+.overview-help:hover{color:#e3f0fc}
+.workspace{display:flex;flex-direction:column;min-width:0;min-height:0;background:#252c36}
+.viewport-header{display:flex;align-items:center;justify-content:space-between;gap:12px;height:37px;flex:none;padding:0 18px;background:#2b3440;border-bottom:1px solid #424e5e}
+.viewport-header>div{display:flex;align-items:center;gap:9px;min-width:0}
+.viewport-header h1{font-weight:500;font-size:12px;margin:0;color:#dfe8f2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.viewport-dot{width:6px;height:6px;background:#94ccf0;border-radius:2px;flex:none}
+.viewport-type{font-size:10px;color:#899bb0;white-space:nowrap}
+.workspace-mode{font-size:9px;color:#a3b8cd;letter-spacing:.04em;white-space:nowrap}
+.stage{background:#252c36;overflow:hidden}
+.hud{top:16px;left:18px;max-width:calc(100% - 154px)}
+.chip{max-width:440px;padding:9px 12px;border:1px solid #4a5a6d;border-left:2px solid #8dcef7;border-radius:3px;background:#2c3643ed;font-size:11px;line-height:1.55;color:#becddd;box-shadow:0 3px 10px #0001}
+.chip b{color:#d5ecfb}
+.coords{top:auto;bottom:15px;right:18px;padding:4px 7px;color:#90a2b9;background:#28323dbb;border:0;border-radius:3px;font-size:10px}
+.coords b{color:#bdcddd}
+.axes-key{top:14px;right:15px;bottom:auto;width:95px;height:109px;display:flex;flex-direction:column;align-items:center;pointer-events:auto}
+.axes-key canvas{width:95px;height:88px;pointer-events:none}
+.axes-key button{color:#b8cee4;background:#354455;border:1px solid #576d85;border-radius:3px;padding:2px 14px;font-size:9px;letter-spacing:.06em;cursor:pointer;margin-top:4px}
+.axes-key button:hover{background:#4a6380;color:white}
+.viewport-navigation{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:3px;padding:4px;border:1px solid #4a596b;border-radius:5px;background:#303b49e8;box-shadow:0 2px 8px #0002}
+.viewport-navigation>button{border:0;border-radius:3px;background:transparent;color:#b9cce0;display:grid;place-items:center;padding:4px;cursor:pointer}
+.viewport-navigation>button:hover{background:#4b637e;color:#fff}
+.viewport-navigation .ui-icon{width:17px;height:17px}
+.viewport-navigation>span{height:18px;width:1px;background:#516076;margin:0 3px}
+.hint-bottom{bottom:18px;left:18px;color:#8395ab;font-size:10px}
+.footer{height:31px;min-height:31px;padding:0 15px;gap:18px;border-color:#465365;background:#28323e;color:#92a7bc;font-size:10px;justify-content:flex-start;overflow:hidden;flex-wrap:nowrap}
+.footer>span{min-width:0;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.footer>.mode,.footer .mode{color:#bacbde}
+.footer #sawLengthResult,.footer #cutAllowanceResult,.footer #bendDataFooterStatus{font-size:10px;font-weight:500;text-align:left}
+.footer #sawLengthResult{color:#bee2fa}
+.footer #gridText{margin-left:auto;flex:none;color:#8fa4ba}
+.dot{background:#97cdef}
+.app.sidebar-collapsed .workbench{grid-template-columns:minmax(0,1fr)}
+.app.sidebar-collapsed .workspace-overview{display:none}
+.quick-button:focus-visible,.ribbon-tabs>button:focus-visible,.button:focus-visible,.project-overview-button:focus-visible,.overview-help:focus-visible,.pipe-tab:focus-visible,.pipe-tab-close:focus-visible,.pipe-tab-add:focus-visible,.viewport-navigation>button:focus-visible,.axes-key>button:focus-visible,.mouse-help summary:focus-visible{outline:2px solid #a2dbff;outline-offset:2px}
+/* Dialogs share the workspace palette while keeping their existing workflows. */
+.app-dialog{background:#2c3542;border-color:#607389;border-radius:8px;padding:24px;color:#e6eef6}
+.app-dialog::backdrop{background:#111821ae;backdrop-filter:blur(2px)}
+.dialog-head h2,.simulation-heading h2{font-size:20px;font-weight:600;letter-spacing:-.02em}
+.dialog-head p{font-size:12px;color:#aebdd0;line-height:1.6}
+.button{font-family:inherit;font-size:12px;border-radius:4px;border-color:#546579;background:#384656;color:#d9e5f0}
+.button:hover{border-color:#8dadcc;background:#435970}
+.button.primary{background:#8dcef7;border-color:#8dcef7;color:#132735}
+.button.primary:hover{background:#b1dffb;border-color:#b1dffb}
+.app-dialog select,.app-dialog input:not([type=checkbox]),.record-grid input,.project-folder-controls select{background:#202936;color:#e8f1fa;border-color:#566b82;font:13px "Segoe UI",Arial,sans-serif}
+.app-dialog input:focus,.app-dialog select:focus{outline:2px solid #91c9ee;outline-offset:1px}
+.dialog-label,.record-grid label,.project-folder-controls label{font-size:12px;color:#bacbde}
+.dialog-note,.machine-settings,.profile-row,.project-folder-controls,.project-current,.project-isometry-row,.bend-data-cut-summary,.bend-order-recommendation,.segment-edit-row,.segment-edit-fields,.bend-sketch-panel{background:#263240;border-color:#4e6279}
+.profile-row strong{font-size:13px}.profile-row small{font-size:11px;color:#abbdd0}
+.dialog-note{font-size:12px;line-height:1.55;color:#bed0e3}
+.machine-settings p,.project-empty,.project-isometry-row small,.project-root-status{color:#aebed2;font-size:12px}
+.project-empty{border-color:#536a82;background:#273341}
+.project-current{border-left-color:#91c9ee}
+.project-folder-controls input,.project-save-row input{border-color:#566b82;background:#202936}
+.machine-settings .button{margin-top:0}
+.dim-field{background:#283746f5;border-color:#a1d8f7;color:#eef8ff;font-size:12px;height:30px;border-radius:4px}
+.dim-field:focus{outline-color:#c3eaff}
+.dim-field.derived-dimension,.segment-edit-field .derived-dimension{color:#a7d4d9;background:#263c45;border-color:#628795}
+@media(max-width:1200px){.ribbon-explanation{max-width:270px;font-size:10px}.ribbon-explanation strong{font-size:11px}.hint-bottom{display:none}.footer #gridText{display:none}}
+@media(max-width:980px){.workbench{grid-template-columns:216px minmax(0,1fr)}.ribbon-explanation{display:none}.viewport-type{display:none}.ribbon-button.button{min-width:90px}.ribbon-group-tools{gap:2px}.app-titlebar{gap:12px}.app-brand>span:last-child,.brand-divider{display:none}.footer{gap:12px}.overview-section{padding:12px}.hud{left:12px;max-width:calc(100% - 130px)}.chip{font-size:10px;padding:7px 9px}}
+@media(max-width:700px){.app{min-height:480px}.workbench{grid-template-columns:minmax(0,1fr)}.workspace-overview{display:none}.app.sidebar-open .workbench{grid-template-columns:195px minmax(0,1fr)}.app.sidebar-open .workspace-overview{display:flex}.app-titlebar{gap:8px;padding:0 9px}.app-brand strong{font-size:11px}.app-brand>.ui-icon{width:21px}.document-title{font-size:10px}.quick-actions{gap:0}.quick-divider{margin:0 3px}.ribbon-tabs{padding:0 5px;gap:0}.ribbon-tabs>button{min-width:72px;padding:4px 9px;font-size:10px}.ribbon-panel{padding-left:8px;gap:7px}.ribbon-group{padding-right:7px}.ribbon-button.button{min-width:82px;padding:5px;font-size:11px}.ribbon-group-tools{gap:0}.footer{height:30px;min-height:30px;flex-wrap:nowrap}.footer #bendDataFooterStatus,.footer #cutAllowanceResult{display:none}.viewport-header{padding:0 12px}.workspace-mode{font-size:8px}.coords{bottom:15px;font-size:9px;right:10px}.app.sidebar-open .coords{display:none}.app.sidebar-open .hud{max-width:calc(100% - 20px)}.app.sidebar-open .axes-key{display:none}}
+@media print{body.print-bend-data .icon-sprite{display:none}body.print-bend-data #bendDataDialog .dialog-head h2{font-size:17px}body.print-bend-data #bendDataDialog .button{display:none}}

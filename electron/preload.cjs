@@ -1,10 +1,15 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('rohrPlanDesktop', {
+  loadPipeProfiles: () => ipcRenderer.invoke('pipe-profiles:load'),
+  savePipeProfiles: profiles => ipcRenderer.invoke('pipe-profiles:save', profiles),
   saveIsometryFile: (name, contents) => ipcRenderer.invoke('isometry:save-file', { name, contents }),
   exportBendDataPdf: () => ipcRenderer.invoke('bend-data:export-pdf'),
   readStepRuntime: () => ipcRenderer.invoke('step:read-runtime'),
   pickDirectory: () => ipcRenderer.invoke('project:pick-directory'),
+  getProjectsRoot: () => ipcRenderer.invoke('project:get-root'),
+  showProjectsRoot: () => ipcRenderer.invoke('project:show-root'),
+  listDirectory: (rootPath) => ipcRenderer.invoke('project:list-directory', { rootPath }),
   ensureDirectory: (rootPath, name, create) => ipcRenderer.invoke('project:ensure-directory', { rootPath, name, create }),
   readFile: async (rootPath, name) => {
     try {

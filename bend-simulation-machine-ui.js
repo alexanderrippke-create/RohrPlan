@@ -16,7 +16,7 @@
  const note=document.createElement('small');note.textContent='Geprüft werden Vorschub, Futterdrehung und Biegen gegen Bett, Futter, Rahmenoberkante, bewegte Außenhülle und Boden. Maschinenkontakte sind Warnungen auf Basis vereinfachter Formen. Normale Rohrführung und Werkzeuganlage sind ausgenommen. Spannbacken, Rahmenstützen und Armrücklauf sind noch nicht erfasst.';
  panel.append(heading,toolbar,summary,list,note);el('model').after(panel);
  document.querySelector('.note').textContent='Kollisionsprüfung mit deinen Maschinenmaßen. Rot markiert mögliche Berührungen; Treffer an vereinfachten Maschinenformen werden als Warnung angezeigt.';
- const style=document.createElement('style');style.textContent='.collision-panel{margin:16px 0;padding:16px;background:#1c2922;border:1px solid #52745e;border-radius:8px}.collision-panel h2{margin:0}.collision-panel .tools{margin:10px 0}.collision-summary{color:#d5e8da}.collision-events{display:flex;flex-direction:column;gap:6px;max-height:240px;overflow:auto;margin:10px 0}.collision-events button{text-align:left;background:#493324;border-color:#b97b49}.collision-events button[data-severity="error"]{background:#552824;border-color:#cc7065}.collision-panel input{accent-color:#87bb96}body.embedded .collision-panel{font-size:13px;padding:10px}body.embedded .collision-events{max-height:130px}';document.head.append(style);
+ const style=document.createElement('style');style.textContent='.collision-panel{margin:16px 0;padding:16px;background:var(--dialog-card,#263240);border:1px solid var(--dialog-border,#566b82);border-radius:8px}.collision-panel h2{margin:0}.collision-panel .tools{margin:10px 0}.collision-summary{color:#bed0e3}.collision-events{display:flex;flex-direction:column;gap:6px;max-height:240px;overflow:auto;margin:10px 0}.collision-events button{text-align:left;background:#493324;border-color:#b97b49}.collision-events button[data-severity="error"]{background:#552824;border-color:#cc7065}.collision-panel input{accent-color:var(--dialog-accent,#8dcef7)}body.embedded .collision-panel{font-size:13px;padding:10px}body.embedded .collision-events{max-height:130px}';document.head.append(style);
 
  sequenceGeometry=function(time){
   const result=oldGeometry(time),phase=sequence?.phases?.find(p=>time<p.end-1e-9);
@@ -42,8 +42,9 @@
   if(hitIds.has('body')){const b=part('body'),shift=data.tooling.centerlineRadius-state.radius;drawBox(b.min.map((v,i)=>v+(i===1?shift:0)),b.max.map((v,i)=>v+(i===1?shift:0)),'#d63828',true);}
   if(hitIds.has('guide-top')){const b=part('guide-top');drawBox(b.min,b.max,'#d63828',true);}
   if(hitIds.has('bend-arm')){
-   const b=part('bending-head').boundsRelativeToRollAxis,C=[0,-state.radius,0];
-   drawBox(b.min,b.max,'#d63828',true,p=>rotateZ(p,-state.angle*Math.PI/180).map((v,i)=>v+C[i]));
+   const bounds=window.RohrPlanMachines.movingBounds(data,state.radius),C=[0,-state.radius,0],turn=p=>rotateZ(p,-state.angle*Math.PI/180).map((v,i)=>v+C[i]);
+   if(bounds.cylinder)drawBox(bounds.cylinder.min,bounds.cylinder.max,'#d63828',true,turn);
+   drawBox(bounds.arm.min,bounds.arm.max,'#d63828',true,turn);
   }
   const affected=new Set(hits.flatMap(h=>h.segments));
   const scale=(focus==='head'?Math.min(w/1500,h/1700):Math.min(w/7500,h/2700))*zoom;

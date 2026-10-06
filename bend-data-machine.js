@@ -22,7 +22,7 @@
    }
   }
   const affected=[...new Set(machineEvents.map(e=>e.number))];
-  el('machineCollisionSummary').textContent='TUBOBEND 48 · Maschinenprüfung: '+(report.complete?(affected.length?'Warnungen bei Biegung '+affected.join(', ')+'. ':'Keine Maschinenwarnung im geprüften Ablauf erkannt. '):'Nicht abgeschlossen. '+(report.reason||'')+' ')+limitation;
+  el('machineCollisionSummary').textContent=window.RohrPlanMachines.getActive().name+' · Maschinenprüfung: '+(report.complete?(affected.length?'Warnungen bei Biegung '+affected.join(', ')+'. ':'Keine Maschinenwarnung im geprüften Ablauf erkannt. '):'Nicht abgeschlossen. '+(report.reason||'')+' ')+limitation;
   el('machineCollisionSummary').classList.toggle('machine-warning-summary',affected.length>0||!report.complete);
  }
  function run(payload,direction){
@@ -37,7 +37,7 @@
     let report=cache.get(key);
     if(!report){
      el('machineCollisionSummary').textContent='Maschinenkontakte werden geprüft …';
-     const model=JSON.parse(JSON.stringify(window.RohrPlanTubobend48Model)),sequence=window.RohrPlanBendSequence.createSequence(payload,model);model.floorZ=-sequence.height;
+     const model=window.RohrPlanMachines.model(payload.machineProfile,{radius:payload.bends?.[0]?.radius,tubeOuterDiameter:payload.tubeOuterDiameter}),sequence=window.RohrPlanBendSequence.createSequence(payload,model);model.floorZ=-sequence.height;
      report=await window.RohrPlanMachineCollision.analyze(sequence,model,time=>window.RohrPlanBendSequence.stateAt(sequence,time),{
       isCancelled:()=>id!==revision,
       onProgress:value=>{if(id===revision)el('machineCollisionSummary').textContent='Maschinenkontakte werden geprüft … '+Math.round(value*100)+' %';}

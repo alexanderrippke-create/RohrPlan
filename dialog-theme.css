@@ -1,0 +1,114 @@
+/* Shared screen palette for dialogs and their embedded pages. */
+@media screen {
+  :root {
+    --dialog-surface: #2c3542;
+    --dialog-card: #263240;
+    --dialog-input: #202936;
+    --dialog-border: #566b82;
+    --dialog-text: #e6eef6;
+    --dialog-muted: #aebed2;
+    --dialog-accent: #8dcef7;
+  }
+
+  .app-dialog.project-dialog { background: var(--dialog-surface); border-color: var(--dialog-border); padding: 0; }
+  .app-dialog .project-dialog-head { background: #333e4c; border-color: var(--dialog-border); }
+  .app-dialog .project-dialog-head p,
+  .app-dialog .project-section-title small,
+  .app-dialog .segment-edit-field,
+  .app-dialog .bend-data-note { color: var(--dialog-muted); }
+  .app-dialog .project-open-card,
+  .app-dialog .project-save-row,
+  .app-dialog .project-saved-section,
+  .app-dialog .segment-edit-card,
+  .app-dialog .u-measure-sketch,
+  .app-dialog .bend-data-status { background: var(--dialog-card); border-color: var(--dialog-border); color: var(--dialog-text); }
+  .app-dialog .project-folder-controls { background: transparent; }
+  .app-dialog .project-section-title strong,
+  .app-dialog .project-isometry-row strong { color: var(--dialog-text); }
+  .app-dialog .project-step,
+  .app-dialog .project-isometry-row > div:first-child::before { background: #354b62; border-color: #68839f; color: #c4e6fb; }
+  .app-dialog .project-isometry-row:hover { background: #35475b; border-color: #7899b7; }
+  .app-dialog .dialog-close { color: #bdcddd; }
+  .app-dialog .dialog-close:hover { color: white; }
+  .app-dialog.project-dialog .dialog-close { background: #384656; border-color: var(--dialog-border); }
+  .app-dialog .project-current { color: var(--dialog-text); }
+  .app-dialog .project-save-row > label,
+  .app-dialog .project-folder-controls label { color: #bacbde; }
+  .app-dialog .bend-data-cut-summary { color: #bed0e3; }
+  .app-dialog .bend-data-cut-summary strong { color: #c4e6fb; }
+  .app-dialog .segment-edit-field .derived-dimension { background: #293d53; border-color: #6285a6; color: #afd4f2; }
+  .app-dialog .bend-data-table-wrap,
+  .app-dialog .bend-data-table th,
+  .app-dialog .bend-data-table td { border-color: #4e6279; }
+  .app-dialog .bend-data-table thead { background: #354455; color: #c6d8e9; }
+  .app-dialog .bend-data-table tbody td { color: var(--dialog-text); }
+  .app-dialog .bend-data-table tbody td:first-child { color: var(--dialog-accent); }
+  #bendDataDialog .bend-order-recommendation,
+  #bendDataDialog .bend-data-status,
+  #bendDataDialog .bend-data-table { background: var(--dialog-card); color: var(--dialog-text); border-color: var(--dialog-border); }
+  #bendDataDialog .bend-data-table td[data-machine-collision],
+  #bendDataDialog .bend-data-table td[data-floor-collision] { background: #2d3c4d; color: #dce8f4; }
+  #bendDataDialog #floorCollisionSummary,
+  #bendDataDialog #machineCollisionSummary { padding: 10px 12px; background: var(--dialog-card); border: 1px solid var(--dialog-border); border-radius: 6px; color: #bed0e3; line-height: 1.6; }
+  #bendDataDialog .bend-data-table td.machine-unchecked { color: #f3d49c; }
+  #bendDataDialog .bend-data-table td.machine-warning { background: #4a3321; color: #ffd4a5; }
+  #bendDataDialog .bend-data-table td.floor-turn-warning { background: #4a3a23; color: #f3d49c; }
+  #bendDataDialog .bend-data-table td.floor-warning { background: #642e28; color: #ffd1c5; }
+  #bendDataDialog #machineCollisionSummary.machine-warning-summary { border-color: #997b4d; color: #f3d49c; }
+  .app-dialog .shortcuts-table th { color: #c4e6fb; }
+  .app-dialog .u-measure-sketch .sketch-label { fill: #c4e6fb; }
+  .app-dialog .u-measure-sketch .sketch-small { fill: #b0c2d5; }
+  .app-dialog .u-measure-sketch .sketch-dimension { stroke: var(--dialog-accent); }
+  .app-dialog .u-measure-sketch #dimArrow path { stroke: var(--dialog-accent); }
+  .app-dialog .u-measure-sketch figcaption { color: var(--dialog-muted); }
+  .app-dialog .u-measure-sketch .sketch-corner { stroke: var(--dialog-card); }
+  .app-dialog .bend-sketch-panel { background: #f5f7fa; border-color: #778ba1; }
+  .app-dialog .bend-sketch-heading { color: #304256; }
+  .app-dialog .bend-sketch-heading small { color: #62778d; }
+  .app-dialog .bend-sketch-wrap .sketch-bend { stroke: #39759e; }
+  .app-dialog .bend-sketch-wrap .sketch-bend-label,
+  .app-dialog .bend-sketch-wrap .sketch-leg-label { fill: #31678f; }
+  .app-dialog .bend-sketch-wrap .sketch-measure-line { stroke: #5083ab; }
+  .app-dialog .bend-sketch-wrap .sketch-measure-extension { stroke: #91abc1; }
+  #simulationFrame, #machineMeasurementFrame { background: var(--dialog-card); }
+
+  body.model-page,
+  body.measurement-page { background: var(--dialog-surface); color: var(--dialog-text); color-scheme: dark; }
+  .model-page p, .model-page small,
+  .measurement-page .hint,
+  .measurement-page #saveStatus,
+  .measurement-page #machineEditorStatus { color: var(--dialog-muted); }
+  .model-page .card,
+  .measurement-page .card { background: var(--dialog-card); border-color: #4e6279; }
+  .model-page .head-measure-explanation { color: #304256; border-color: #a9bbcd; }
+  .model-page .head-measure-explanation p { color: #40566d; }
+  .model-page button,
+  .measurement-page button,
+  .measurement-page nav a { background: #384656; border-color: var(--dialog-border); color: #d9e5f0; font-size: 13px; }
+  .model-page button:hover,
+  .measurement-page button:hover,
+  .measurement-page nav a:hover { background: #435970; border-color: #8dadcc; }
+  .model-page button:disabled,
+  .measurement-page button:disabled { opacity: .45; cursor: not-allowed; }
+  .model-page input[type=number],
+  .measurement-page .machine-meta-grid input,
+  .measurement-page .machine-meta-grid select { background: var(--dialog-input); color: var(--dialog-text); border: 1px solid var(--dialog-border); border-radius: 4px; padding: 6px; }
+  .model-page input[type=range] { accent-color: var(--dialog-accent); }
+  .model-page .collision-panel { background: var(--dialog-card); border-color: var(--dialog-border); color: var(--dialog-text); }
+  .model-page .collision-panel .collision-summary { color: #bed0e3; }
+  .model-page .collision-panel input { accent-color: var(--dialog-accent); }
+  .model-page .collision-events button { background: #493324; border-color: #b97b49; color: #ffe0b7; }
+  .model-page .collision-events button[data-severity="error"] { background: #552824; border-color: #cc7065; color: #ffd1c5; }
+  .model-page button:focus-visible,
+  .model-page input:focus-visible,
+  .measurement-page button:focus-visible,
+  .measurement-page nav a:focus-visible,
+  .measurement-page .machine-meta-grid input:focus,
+  .measurement-page .machine-meta-grid select:focus { outline: 2px solid var(--dialog-accent); outline-offset: 2px; }
+  .measurement-page .save { background: var(--dialog-accent); color: #132735; border-color: var(--dialog-accent); }
+  .measurement-page .save:hover { background: #b1dffb; color: #132735; }
+  .measurement-page .info { background: #354b62; border-left-color: var(--dialog-accent); color: #dcecf9; }
+  .measurement-page .card > svg { background: white; border-radius: 6px; color-scheme: light; }
+  .measurement-page .entry input[readonly] { background: #edf5fc; color: #315c7a; border-color: #729dbc; }
+  .measurement-page .entry input:focus { outline-color: #8dbbe0; }
+}

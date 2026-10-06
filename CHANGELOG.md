@@ -1,3 +1,36 @@
+# RohrPlan 1.0.0 – Neue Oberfläche und Maschinenverwaltung
+
+- CAD-Werkzeugleiste, linke Projekt-/Rohrübersicht und direkte Ansichtstasten.
+- Graublaue Dialoge einschließlich der dynamisch erzeugten Kollisionsprüfung im Simulator.
+- Mehrere Maschinen über die Maßskizze anlegen, bearbeiten und auswählen.
+- Projektordner unter Dokumente\RohrPlan und gemeinsame Rohrdaten mit Sicherung unter Stammdaten.
+- Dynamischer Rollen-Ø = 2 × Biegeradius, 3D-Rolle und Zylinderbox von 2 × R bis W.
+- Enthält die bisher lokal bereitgestellten Änderungen aus 0.1.8 und 0.1.9.
+
+# RohrPlan 0.1.9 – Rohrdaten im gemeinsamen Stammdaten-Ordner
+
+- Rohrdatensätze dauerhaft unter Dokumente\RohrPlan\Stammdaten ablegen; vor Änderungen die vorherige Datei als .bak sichern.
+- Bestehende Daten aus dem jeweiligen lokalen Speicher beim ersten Anlegen der Datei übernehmen.
+- Windows-App und Browserversion mit freigegebenem Standardordner verwenden dieselbe Rohrdaten-Datei.
+- Stammdaten-Ordner aus der Projektliste ausblenden und den Namen für die Rohrdaten reservieren.
+- Unlesbare Daten melden und vor Überschreiben schützen.
+
+# RohrPlan 0.1.8 – Mehrere Maschinen in den Stammdaten
+
+- Projektdatei-Ablauf entfernt: Standardordner Dokumente\RohrPlan; jeder Unterordner ist ein Projekt. Isometrien liegen als einzelne Dateien darin.
+- Projektordner anlegen und auswählen; Ordner und Isometrien aus dem Explorer mit „Liste aktualisieren“ einlesen.
+- Neue Maschine mit eigenem Namen, Hersteller, Rohrmittellinienhöhe und Biegerichtung anlegen.
+- Maschinenmaße direkt in der Maßskizze eintragen, speichern und später bearbeiten.
+- Aktive Maschine in den Stammdaten auswählen. Die Auswahl und alle Maschinenmaße bleiben lokal gespeichert.
+- Die vorhandene TUBOBEND 48 mit den bestätigten Maßen bleibt erhalten. Bisherige Höhe und Biegerichtung werden übernommen.
+- Simulator und Kollisionsprüfung verwenden dasselbe Modell der ausgewählten Maschine. Simulationsdateien enthalten eine Kopie der Maschinenmaße.
+- Biegerolle als 3D-Zylinder mit Deckfläche und schattierter Seitenfläche; Durchmesser folgt dem Rohrdatensatz, Höhe bleibt schematisch.
+- Rollen-Ø automatisch aus dem ausgewählten Rohrdatensatz: 2 × Biegeradius; kein festes Maschinenmaß mehr.
+- Zylinderbox beginnt 2 × Biegeradius ab Rollenmitte und endet bei W. Der schmale Arm bleibt separat in der Kollisionsprüfung.
+- Maßskizze aus dem Simulator entfernt; sie gehört jetzt zur Maschinenverwaltung.
+
+Die Skizze und das Modell beschreiben waagerechte Biegemaschinen mit der gezeigten Anordnung. Räumliche Simulation und Maschinenkontaktprüfung unterstützen weiterhin Biegungen im Uhrzeigersinn. Die Prüfung verwendet vereinfachte Außenhüllen; genaue Spannbacken, Rahmenstützen und Armrücklauf sind weiterhin nicht erfasst.
+
 # RohrPlan 0.1.7 – Simulator startet wieder
 
 - JavaScript-Syntaxfehler in der Modellvorschau behoben. Ein verbliebener Teil des alten Maschinen-Datenblocks verhinderte in Version 0.1.6 den Start des Simulators.

@@ -1,6 +1,8 @@
 # RohrPlan als Windows-Desktopprogramm
 
-Die App wird mit Electron als eigenständiges Windows-Programm gestartet. Die Projektordnerauswahl läuft über den Windows-Dateidialog; Einzelne Isometrien können unabhängig von einem Projekt als .rohrplan.json-Dateien gespeichert und geöffnet werden. Optional werden Projektmanifest und Isometrien im gewählten Projektordner abgelegt. Der zuletzt verwendete Ordner wird im lokalen App-Profil gemerkt.
+Die App wird mit Electron als eigenständiges Windows-Programm gestartet. Der Standardordner ist Dokumente\RohrPlan, auch wenn Windows-Dokumente in OneDrive liegen. Jeder direkte Unterordner außer Stammdaten ist ein Projekt. Einzelne Isometrien werden als .rohrplan.json-Dateien gespeichert und geöffnet. Im Programm können Projektordner angelegt und ausgewählt werden; „Liste aktualisieren“ liest Änderungen aus dem Explorer ein.
+
+Rohrdatensätze liegen in Dokumente\RohrPlan\Stammdaten\Rohrdatensaetze.json. Vor Änderungen wird der bisherige Stand als .bak gesichert. Maschinen werden in den Stammdaten ausgewählt und über die Maßskizze angelegt oder bearbeitet.
 
 ## STEP-Vorschau
 

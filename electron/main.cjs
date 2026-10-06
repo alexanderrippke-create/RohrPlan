@@ -3,6 +3,48 @@ const { autoUpdater } = require('electron-updater');
 const fs = require('node:fs/promises');
 const path = require('node:path');
 
+function validatePipeProfiles(profiles) {
+  if (!Array.isArray(profiles) || profiles.some(profile => !profile || typeof profile.id !== 'string' || !profile.id || ![profile.diameter, profile.wall, profile.radius, profile.sampleLength].every(value => Number.isFinite(value) && value > 0) || !Array.isArray(profile.legs) || profile.legs.length !== 3 || !profile.legs.every(value => Number.isFinite(value) && value > 0))) {
+    throw new Error('Die Datei enthält ungültige Rohrdatensätze.');
+  }
+  return profiles;
+}
+
+function pipeProfilesFile() {
+  return path.join(app.getPath('documents'), 'RohrPlan', 'Stammdaten', 'Rohrdatensaetze.json');
+}
+
+ipcMain.handle('pipe-profiles:load', async () => {
+  try {
+    const data = JSON.parse(await fs.readFile(pipeProfilesFile(), 'utf8'));
+    if (data.format !== 'rohrplan-pipe-profiles' || data.version !== 1) throw new Error('Unbekanntes Rohrdaten-Dateiformat.');
+    return { profiles: validatePipeProfiles(data.profiles) };
+  } catch (error) {
+    if (error.code === 'ENOENT') return { profiles: null };
+    throw new Error(`Rohrdaten konnten nicht geladen werden: ${error.message}`);
+  }
+});
+
+let pipeProfileWriteQueue = Promise.resolve();
+ipcMain.handle('pipe-profiles:save', (_event, profiles) => {
+  validatePipeProfiles(profiles);
+  const save = pipeProfileWriteQueue.then(async () => {
+    const file = pipeProfilesFile();
+    await fs.mkdir(path.dirname(file), { recursive: true });
+    try {
+      await fs.copyFile(file, `${file}.bak`);
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error;
+    }
+    const temporary = `${file}.tmp`;
+    await fs.writeFile(temporary, JSON.stringify({ format: 'rohrplan-pipe-profiles', version: 1, profiles }, null, 2), 'utf8');
+    await fs.rename(temporary, file);
+    return true;
+  });
+  pipeProfileWriteQueue = save.catch(() => {});
+  return save;
+});
+
 function resolveChild(rootPath, relativePath) {
   if (typeof rootPath !== 'string' || !path.isAbsolute(rootPath)) throw new Error('Ungültiger Projektordner.');
   if (typeof relativePath !== 'string' || !relativePath || path.isAbsolute(relativePath)) throw new Error('Ungültiger Dateiname.');
@@ -12,11 +54,29 @@ function resolveChild(rootPath, relativePath) {
   return target;
 }
 
+async function projectsRoot() {
+  const rootPath = path.join(app.getPath('documents'), 'RohrPlan');
+  await fs.mkdir(rootPath, { recursive: true });
+  return { path: rootPath, name: 'RohrPlan' };
+}
+
+ipcMain.handle('project:get-root', () => projectsRoot());
+ipcMain.handle('project:show-root', async () => {
+  const root = await projectsRoot();
+  const error = await shell.openPath(root.path);
+  if (error) throw new Error(error);
+});
+ipcMain.handle('project:list-directory', async (_event, { rootPath }) => {
+  if (typeof rootPath !== 'string' || !path.isAbsolute(rootPath)) throw new Error('Ungültiger Projektordner.');
+  const entries = await fs.readdir(rootPath, { withFileTypes: true });
+  return entries.filter(entry => entry.isDirectory() || entry.isFile()).map(entry => ({ name: entry.name, kind: entry.isDirectory() ? 'directory' : 'file' }));
+});
+
 ipcMain.handle('isometry:save-file', async (event, { name, contents }) => {
   if (typeof name !== 'string' || /[<>:"/\\|?*\u0000-\u001f]/.test(name) || typeof contents !== 'string') throw new Error('Ungültige Isometrie-Datei.');
   const data = JSON.parse(contents);
   if (data.formatVersion !== 1 || !Array.isArray(data.segments) || !data.profile) throw new Error('Ungültige Isometrie.');
-  const result = await dialog.showSaveDialog(BrowserWindow.fromWebContents(event.sender), { title: 'Isometrie als Datei speichern', defaultPath: path.join(app.getPath('documents'), name), filters: [{ name: 'RohrPlan-Isometrie', extensions: ['json'] }] });
+  const result = await dialog.showSaveDialog(BrowserWindow.fromWebContents(event.sender), { title: 'Isometrie als Datei speichern', defaultPath: path.join((await projectsRoot()).path, name), filters: [{ name: 'RohrPlan-Isometrie', extensions: ['json'] }] });
   if (result.canceled || !result.filePath) return { canceled: true };
   await fs.writeFile(result.filePath, contents, 'utf8');
   return { canceled: false };
@@ -33,7 +93,7 @@ ipcMain.handle('project:pick-directory', async (event) => {
 });
 
 ipcMain.handle('project:ensure-directory', async (_event, { rootPath, name, create }) => {
-  if (typeof name !== 'string' || !name || /[<>:"/\\|?*\u0000-\u001f]/.test(name) || /[. ]$/.test(name)) throw new Error('Ungültiger Ordnername.');
+  if (typeof name !== 'string' || !name || /[<>:"/\\|?*\u0000-\u001f]/.test(name) || /[. ]$/.test(name) || /^(con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\.|$)/i.test(name)) throw new Error('Ungültiger Ordnername.');
   const target = resolveChild(rootPath, name);
   if (create) await fs.mkdir(target, { recursive: true });
   else await fs.access(target);
@@ -78,7 +138,7 @@ function createWindow() {
     minWidth: 900,
     minHeight: 650,
     title: 'RohrPlan',
-    backgroundColor: '#111816',
+    backgroundColor: '#252c36',
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
       contextIsolation: true,
@@ -90,6 +150,7 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  projectsRoot().catch(error => console.error('RohrPlan project directory:', error));
   createWindow();
   if (app.isPackaged) {
     const checkForUpdates = () => autoUpdater.checkForUpdatesAndNotify().catch((error) => console.error('RohrPlan update check failed:', error));

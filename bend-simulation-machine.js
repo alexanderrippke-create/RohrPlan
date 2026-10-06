@@ -58,7 +58,7 @@
   const frontX=Math.max(baseChuck.farthestFrontCenter[0],Math.min(baseChuck.nearestFrontCenter[0],state.points[0][0]+baseChuck.length));
   const chuck={...baseChuck,center:[frontX,0,0]};
   // The box width includes unmeasured positions of the tool-side parts.
-  const contactRadius=Math.hypot(state.radius,arm.maxWidth/2+tubeRadius+4);
+  const contactRadius=Math.hypot(state.radius,arm.maxWidth/2+tubeRadius+4),bounds=window.RohrPlanMachines.movingBounds(model,state.radius);
   function record(id,label,index,point,severity='warning'){
    if(!hits.has(id))hits.set(id,{id,label,severity,point,segments:[]});
    hits.get(id).segments.push(index);
@@ -71,7 +71,7 @@
    const spindle=chuckHit(a,b,chuck,tubeRadius,padding);if(spindle)record('chuck-front','Spannfutter',i-1,spindle);
    for(const [p,q]of armPieces(a,b,C,contactRadius)){
     const local=v=>rotate(v.map((n,k)=>n-C[k]),angle),p0=local(p),p1=local(q);
-    const moving=boxInterval(p0,p1,head.boundsRelativeToRollAxis.min,head.boundsRelativeToRollAxis.max,padding);
+    const moving=(bounds.cylinder&&boxInterval(p0,p1,bounds.cylinder.min,bounds.cylinder.max,padding))||boxInterval(p0,p1,bounds.arm.min,bounds.arm.max,padding);
     if(moving){record('bend-arm','Arm / Zylinder · Außenhülle',i-1,at(p,q,(moving[0]+moving[1])/2));break;}
    }
   }

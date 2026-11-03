@@ -7,7 +7,7 @@
 - [x] Projektdateien verweisen auf Dateien im Unterordner „Anhänge“; einzelne Isometrie-Dateien nehmen ihre Anhänge eingebettet mit.
 - [x] Zuordnungen je Rohr-Tab erhalten; Dateizugriff für Browser und Windows-App ergänzt.
 - [x] Lokale Ansicht vom Anwender bestätigt; Veröffentlichung am 03.11.2026 freigegeben.
-- [ ] Windows-Installer bauen und Version 1.0.2 auf GitHub veröffentlichen.
+- [x] Version 1.0.2 am 03.11.2026 auf GitHub veröffentlicht und als aktuelles Windows-Update gesetzt: https://github.com/alexanderrippke-create/RohrPlan/releases/tag/v1.0.2. Installer, Blockmap und latest.yml vorhanden; Build, Paketinhalt und Release-Prüfsummen abgeglichen.
 
 **Grundlage:** `zeichenfeld.html` mit dem isometrischen Zeichenfeld, Offsetkasten, später Bemaßen, Ansicht drehen, verschieben und zoomen.
 

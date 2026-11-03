@@ -6,7 +6,7 @@ Rohrdatensätze liegen in Dokumente\RohrPlan\Stammdaten\Rohrdatensaetze.json. Vo
 
 ## STEP-Vorschau
 
-Über „STEP importieren“ lassen sich `.step`- und `.stp`-Dateien lokal als drehbare 3D-Vorschau öffnen. Analytische Rohrmodelle aus geraden Zylinderstücken und torusförmigen Bögen können als Rohrverlauf mit Biegewinkeln, Biegepositionen und Futterstellungen ausgewertet werden. Biegedaten entstehen nur, wenn zuvor ein Rohrdatensatz mit passendem Durchmesser, auf volle Millimeter gerundeter Wandstärke und passendem, auf volle Millimeter gerundetem Biegeradius angelegt wurde. Ohne passende Zuordnung oder bei nicht unterstützter STEP-Geometrie bleibt die Datei eine Vorschau.
+Über „STEP importieren“ lassen sich `.step`- und `.stp`-Dateien lokal als drehbare 3D-Vorschau öffnen. Analytische Rohrmodelle aus geraden Zylinderstücken und torusförmigen Bögen können als Rohrverlauf mit Biegewinkeln, Biegepositionen und Futterstellungen ausgewertet werden. Biegedaten entstehen nur, wenn zuvor ein Rohrdatensatz mit passendem Durchmesser, auf halbe Millimeter gerundeter Wandstärke und passendem, auf volle Millimeter gerundetem Biegeradius angelegt wurde. Ohne passende Zuordnung oder bei nicht unterstützter STEP-Geometrie bleibt die Datei eine Vorschau.
 
 ## Tastenkürzel
 

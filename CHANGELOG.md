@@ -1,3 +1,10 @@
+# RohrPlan 1.0.2 – STEP-Wandstärke und Rohr-Anhänge
+
+- STEP-Wandstärke auf den nächsten halben Millimeter runden und mit dieser Wandstärke den Rohrdatensatz zuordnen.
+- PDFs und Bilder zum einzelnen Rohr hinzufügen, ansehen und speichern; eigener Anhangordner im Projekt.
+- Anhänge über Rohr-Tabs und Neuladen erhalten; beim einzelnen Dateiexport mitnehmen und beim Öffnen wiederherstellen.
+- Lokale Ansicht vom Anwender bestätigt und zur Veröffentlichung freigegeben.
+
 # RohrPlan 1.0.1 – Drehrichtungen und App-Symbol
 
 - Simulation im Uhrzeigersinn und gegen Uhrzeigersinn entsprechend der ausgewählten Maschine.

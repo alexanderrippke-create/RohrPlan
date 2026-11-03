@@ -2,6 +2,7 @@ const { app, BrowserWindow, dialog, ipcMain, shell } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const fs = require('node:fs/promises');
 const path = require('node:path');
+const { randomUUID } = require('node:crypto');
 
 function validatePipeProfiles(profiles) {
   if (!Array.isArray(profiles) || profiles.some(profile => !profile || typeof profile.id !== 'string' || !profile.id || ![profile.diameter, profile.wall, profile.radius, profile.sampleLength].every(value => Number.isFinite(value) && value > 0) || !Array.isArray(profile.legs) || profile.legs.length !== 3 || !profile.legs.every(value => Number.isFinite(value) && value > 0))) {
@@ -108,6 +109,20 @@ ipcMain.handle('project:write-file', async (_event, { rootPath, name, contents }
   await fs.writeFile(target, contents, 'utf8');
 });
 ipcMain.handle('project:remove-file', async (_event, { rootPath, name }) => fs.unlink(resolveChild(rootPath, name)));
+ipcMain.handle('project:read-binary-file', async (_event, { rootPath, name }) => {
+  const target = resolveChild(rootPath, name);
+  if ((await fs.stat(target)).size > 100 * 1024 * 1024) throw new Error('Die Datei ist zu groß.');
+  return new Uint8Array(await fs.readFile(target));
+});
+ipcMain.handle('project:write-binary-file', async (_event, { rootPath, name, contents }) => {
+  if (!ArrayBuffer.isView(contents) || contents.byteLength > 100 * 1024 * 1024) throw new Error('Ungültige Anhangdatei.');
+  const target = resolveChild(rootPath, name), temporary = target + '.tmp-' + randomUUID();
+  await fs.mkdir(path.dirname(target), { recursive: true });
+  try {
+    await fs.writeFile(temporary, new Uint8Array(contents.buffer, contents.byteOffset, contents.byteLength));
+    await fs.rename(temporary, target);
+  } finally { await fs.unlink(temporary).catch(() => {}); }
+});
 ipcMain.handle('step:read-runtime', async () => new Uint8Array(await fs.readFile(path.join(__dirname, '..', 'vendor', 'occt-import-js', 'occt-import-js.wasm'))));
 
 ipcMain.handle('bend-data:export-pdf', async (event) => {

@@ -1,6 +1,6 @@
 {
   "name": "rohrplan",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Lokale Desktop-App zur isometrischen Rohr- und Biegeplanung",
   "main": "electron/main.cjs",
   "private": true,
@@ -31,6 +31,8 @@
       "workspace.css",
       "dialog-theme.css",
       "workspace-ui.js",
+      "pipe-attachments.js",
+      "pipe-attachments.css",
       "assets/rohrplan.ico",
       "assets/rohrplan.png",
       "assets/favicon.png",

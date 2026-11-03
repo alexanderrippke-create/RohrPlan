@@ -33,6 +33,14 @@ Die Werkzeugleiste ist in Datei, Zeichnen, Biegen und Ansicht gegliedert. Links 
 
 Unter Ansicht stehen ISO-Ansicht, Alles anzeigen, Zoom und Raster zur Verfügung. Die wichtigsten Ansichtstasten sind zusätzlich direkt im Zeichenfeld erreichbar. Rückgängig, Wiederherstellen und Speichern bleiben oben im Schnellzugriff. Biegedaten und PDF-Ausgabe werden über Biegen → Biegedaten geöffnet.
 
+## PDFs und Bilder je Rohr
+
+Links unter **Dokumente zum Rohr → PDFs und Bilder** lassen sich mehrere PDFs oder Bilder auswählen und ansehen. „Rohr mit Anhängen speichern“ verwendet den normalen Speicherdialog. Beim Speichern im Projekt liegen die Dateien getrennt von der Isometrie unter `Anhänge/<Rohrkennung>/`; die Zuordnung steht in der Rohr-Datei und bleibt über Tabwechsel, Neuladen und erneutes Öffnen erhalten. Entwürfe werden bis zum Speichern zusätzlich im lokalen Browserspeicher (IndexedDB) gehalten.
+
+Beim Speichern als einzelne Isometrie-Datei werden die Anhänge eingebettet, damit die Datei weitergegeben und auf einem anderen Rechner geöffnet werden kann. Dadurch kann die JSON-Datei größer werden. Eine entfernte Zuordnung löscht keine vorhandenen Original- oder Projektdateien. Unterstützt sind PDF, JPG, PNG, WEBP, GIF und BMP bis 50 MB je Datei.
+
+Beim STEP-Import wird die erkannte Wandstärke auf den nächsten halben Millimeter gerundet, etwa 2,4 → 2,5 und 2,8 → 3,0. Die Datensatzsuche verwendet diese Wandstärke; ein Datensatz mit 2,5 mm wird nicht auf 3 mm umgedeutet.
+
 ## Biegerichtung der Maschine
 
 Unter **Stammdaten → Maschinen → Maßskizze / Maschine bearbeiten** wird die Biegerichtung von oben gesehen gespeichert. Simulation, Bodenprüfung und Maschinenkontaktprüfung übernehmen diese Einstellung von der ausgewählten Maschine. Unterstützt werden Biegungen im Uhrzeigersinn und gegen Uhrzeigersinn.

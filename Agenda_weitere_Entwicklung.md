@@ -1,5 +1,14 @@
 # Agenda: weitere Entwicklung der Rohrplanungssoftware
 
+## Rohr-Anhänge und STEP-Wandstärke · Version 1.0.2
+
+- [x] STEP-Wandstärke auf halbe Millimeter runden (2,4 → 2,5; 2,8 → 3,0) und damit Rohrdatensätze zuordnen.
+- [x] PDFs und Bilder je gezeichnetem Rohr hinzufügen, ansehen und zusammen mit dem Rohr speichern.
+- [x] Projektdateien verweisen auf Dateien im Unterordner „Anhänge“; einzelne Isometrie-Dateien nehmen ihre Anhänge eingebettet mit.
+- [x] Zuordnungen je Rohr-Tab erhalten; Dateizugriff für Browser und Windows-App ergänzt.
+- [x] Lokale Ansicht vom Anwender bestätigt; Veröffentlichung am 03.11.2026 freigegeben.
+- [ ] Windows-Installer bauen und Version 1.0.2 auf GitHub veröffentlichen.
+
 **Grundlage:** `zeichenfeld.html` mit dem isometrischen Zeichenfeld, Offsetkasten, später Bemaßen, Ansicht drehen, verschieben und zoomen.
 
 **Ziel:** Die nächsten Planungsgespräche so strukturieren, dass wir erst den Ablauf und die benötigten Daten klären und anschließend die passende technische Lösung auswählen.

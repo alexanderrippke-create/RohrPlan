@@ -20,5 +20,10 @@ contextBridge.exposeInMainWorld('rohrPlanDesktop', {
     }
   },
   writeFile: (rootPath, name, contents) => ipcRenderer.invoke('project:write-file', { rootPath, name, contents }),
+  readBinaryFile: async (rootPath, name) => {
+    try { return await ipcRenderer.invoke('project:read-binary-file', { rootPath, name }); }
+    catch (error) { if (/ENOENT|no such file/i.test(error.message)) error.name = 'NotFoundError'; throw error; }
+  },
+  writeBinaryFile: (rootPath, name, contents) => ipcRenderer.invoke('project:write-binary-file', { rootPath, name, contents }),
   removeFile: (rootPath, name) => ipcRenderer.invoke('project:remove-file', { rootPath, name })
 });

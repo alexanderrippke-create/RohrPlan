@@ -1,3 +1,17 @@
+# RohrPlan 1.1.0 – Räumliches Maschinenmodell und Detailmaße
+
+- Modellvorschau als schattiertes 3D-Modell mit verdeckten Kanten: Bett mit Rädern und Schaltkasten, seitlich versetzter Führungsbalken mit Schiene, Futter mit drehenden Backen, Futterschlitten mit Griff, Biegerolle, Spannbacke, Spannzylinder und Gleitschiene.
+- Ansicht verschieben mit Umschalt oder rechter Maustaste; geprüfte Außenhülle ein- und ausblendbar.
+- Kollisionsprüfung zusätzlich gegen den Führungsbalken als Körper mit Höhe und seitlichem Versatz, gegen Futterschlitten und Griff sowie gegen eingetragene Stützfüße.
+- Neues Eingabeblatt „Detailmaße“ (TUBOBEND_48_Detailmasse.html, in den Stammdaten über „Detailmaße eintragen“). Leere Felder bleiben Schätzwerte aus den Maschinenfotos; solange der Balkenversatz fehlt, wird zusätzlich die mittige Lage geprüft.
+- Modellvorschau und Maßskizzen zeigen die Maschine von der Bedienseite: Schaltkasten vorn bzw. unten, Biegekopf links, Rohr von rechts. Bettmaße heißen jetzt „zum Futter“, „zum Kopfende“, „zur Bedienseite“ und „zur Rückseite“; die gespeicherten Werte bleiben gleich.
+- Gehäuse mit hinterer Aussparung zum Futter, tieferem Absatz hinten am Kopfende und offener Nische um die Säule unter der Rollenachse; sieben neue Detailmaße B1–B7. Die Kollisionsprüfung nutzt eine Aussparung erst, wenn ihre Maße vollständig eingetragen sind.
+- Das Futter fährt in der Simulation mit dem Rohrende über den ganzen Führungsbalken mit; das Rohrende liegt an der Futterfläche hinter den Backen an.
+- Die Platte mit Kugelgriff steht fest neben der Gleitschiene und schwenkt nicht mit dem Biegearm.
+- Die am 12.11.2026 gemessenen 14 Detailmaße der TUBOBEND 48 (Detailmasse-TUBOBEND-48.json) sind als Standard hinterlegt; eine bereits gespeicherte TUBOBEND 48 ohne Detailmaße übernimmt sie beim Laden.
+- Gespeicherte Maschinen aus früheren Versionen bleiben erhalten; vor der ersten Änderung wird die bisherige Maschinenliste einmalig als Sicherung abgelegt.
+- Modell und Maße vom Anwender in der Browser-Vorschau geprüft; die gebaute Desktop-App wurde automatisch mit einer Maschinenliste aus Version 1.0.2 getestet.
+
 # RohrPlan 1.0.2 – STEP-Wandstärke und Rohr-Anhänge
 
 - STEP-Wandstärke auf den nächsten halben Millimeter runden und mit dieser Wandstärke den Rohrdatensatz zuordnen.

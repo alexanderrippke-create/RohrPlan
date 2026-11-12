@@ -13,7 +13,7 @@
  toolbar.append(check,stopLabel);
  const summary=document.createElement('p');summary.className='collision-summary';summary.setAttribute('role','status');summary.setAttribute('aria-live','polite');
  const list=document.createElement('div');list.className='collision-events';
- const note=document.createElement('small');note.textContent='Geprüft werden Vorschub, Futterdrehung und Biegen gegen Bett, Futter, Rahmenoberkante, bewegte Außenhülle und Boden. Maschinenkontakte sind Warnungen auf Basis vereinfachter Formen. Normale Rohrführung und Werkzeuganlage sind ausgenommen. Spannbacken, Rahmenstützen und Armrücklauf sind noch nicht erfasst.';
+ const note=document.createElement('small');note.textContent='Geprüft werden Vorschub, Futterdrehung und Biegen gegen Bett, Futter, Futterschlitten mit Griff, Führungsbalken, eingetragene Stützfüße, bewegte Außenhülle und Boden. Maschinenkontakte sind Warnungen auf Basis vereinfachter Formen; nicht eingetragene Detailmaße sind geschätzt. Normale Rohrführung und Werkzeuganlage sind ausgenommen. Spannbacken und Armrücklauf sind noch nicht erfasst.';
  panel.append(heading,toolbar,summary,list,note);el('model').after(panel);
  document.querySelector('.note').textContent='Kollisionsprüfung mit deinen Maschinenmaßen. Rot markiert mögliche Berührungen; Treffer an vereinfachten Maschinenformen werden als Warnung angezeigt.';
  const style=document.createElement('style');style.textContent='.collision-panel{margin:16px 0;padding:16px;background:var(--dialog-card,#263240);border:1px solid var(--dialog-border,#566b82);border-radius:8px}.collision-panel h2{margin:0}.collision-panel .tools{margin:10px 0}.collision-summary{color:#bed0e3}.collision-events{display:flex;flex-direction:column;gap:6px;max-height:240px;overflow:auto;margin:10px 0}.collision-events button{text-align:left;background:#493324;border-color:#b97b49}.collision-events button[data-severity="error"]{background:#552824;border-color:#cc7065}.collision-panel input{accent-color:var(--dialog-accent,#8dcef7)}body.embedded .collision-panel{font-size:13px;padding:10px}body.embedded .collision-events{max-height:130px}';document.head.append(style);
@@ -41,13 +41,18 @@
   const hitIds=new Set(hits.map(h=>h.id)),part=id=>data.components.find(c=>c.id===id);
   if(hitIds.has('body')){const b=window.RohrPlanMachines.bodyBounds(data,state.radius);drawBox(b.min,b.max,'#d63828',true);}
   if(hitIds.has('guide-top')){const b=part('guide-top');drawBox(b.min,b.max,'#d63828',true);}
+  if(hitIds.has('guide-supports'))for(const b of part('guide-supports').boxes)drawBox([b.min[0],b.min[1],data.floorZ],b.max,'#d63828',true);
+  if(hitIds.has('chuck-carriage')){
+   const frontX=window.RohrPlanMachines.chuckFront(data,state.points[0][0]);
+   for(const b of [part('chuck-carriage').plate,part('chuck-carriage').handle])drawBox([b.min[0]+frontX,b.min[1],b.min[2]],[b.max[0]+frontX,b.max[1],b.max[2]],'#d63828',true);
+  }
   if(hitIds.has('bend-arm')){
    const bounds=window.RohrPlanMachines.movingBounds(data,state.radius),turn=window.RohrPlanMachines.armTransform(data,state.radius,state.angle).toWorld;
    if(bounds.cylinder)drawBox(bounds.cylinder.min,bounds.cylinder.max,'#d63828',true,turn);
    drawBox(bounds.arm.min,bounds.arm.max,'#d63828',true,turn);
   }
   const affected=new Set(hits.flatMap(h=>h.segments));
-  const scale=(focus==='head'?Math.min(w/1500,h/1700):Math.min(w/7500,h/2700))*zoom;
+  const scale=viewScale();
   ctx.save();ctx.lineWidth=Math.max(5,(sequence?.diameter??data.tooling.tubeOuterDiameter)*scale+2);ctx.lineCap='round';ctx.strokeStyle='#d63828';
   for(const index of affected){const a=state.points[index],b=state.points[index+1];if(!a||!b)continue;ctx.beginPath();ctx.moveTo(...project(a));ctx.lineTo(...project(b));ctx.stroke();}
   for(const hit of hits){const p=project(hit.point);ctx.beginPath();ctx.arc(p[0],p[1],7,0,Math.PI*2);ctx.fillStyle='#f7faf8';ctx.fill();ctx.lineWidth=2;ctx.stroke();label(hit.point,hit.label,'#bf3023');}

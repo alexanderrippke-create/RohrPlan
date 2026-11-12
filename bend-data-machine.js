@@ -2,7 +2,7 @@
 (()=>{
  'use strict';
  let revision=0,job=null;const cache=new Map(),el=id=>document.getElementById(id);
- const limitation='Prüfung gegen die erfassten Außenhüllen. Genaue Spannbacken, Zylinderkonturen, Rahmenstützen und Armrücklauf sind noch nicht erfasst.';
+ const limitation='Prüfung gegen die erfassten Außenhüllen einschließlich Führungsbalken und Futterschlitten. Nicht eingetragene Detailmaße sind geschätzt; genaue Spannbacken, Zylinderkonturen und Armrücklauf sind noch nicht erfasst.';
  function reset(){revision++;job=null;el('machineCollisionSummary').textContent='';el('machineCollisionSummary').classList.remove('machine-warning-summary');}
  function paint(report){
   const events=report.events||[],machineEvents=events.filter(e=>e.id!=='floor');

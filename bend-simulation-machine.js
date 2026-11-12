@@ -51,10 +51,10 @@
  }
  function inspect(state,model,diameter,margin=0){
   const tubeRadius=diameter/2,padding=tubeRadius+.5+margin,hits=new Map();
-  const part=id=>model.components.find(c=>c.id===id),rail=part('guide-top'),arm=part('bend-arm'),baseChuck=part('chuck-front');
+  const part=id=>model.components.find(c=>c.id===id),rail=part('guide-top'),arm=part('bend-arm'),baseChuck=part('chuck-front'),carriage=part('chuck-carriage'),supports=part('guide-supports');
   const transform=window.RohrPlanMachines.armTransform(model,state.radius,state.angle),C=transform.center;
-  const {min:bodyMin,max:bodyMax}=window.RohrPlanMachines.bodyBounds(model,state.radius);
-  const frontX=Math.max(baseChuck.farthestFrontCenter[0],Math.min(baseChuck.nearestFrontCenter[0],state.points[0][0]+baseChuck.length));
+  const bodyBoxes=window.RohrPlanMachines.bodyBoxes(model,state.radius);
+  const frontX=window.RohrPlanMachines.chuckFront(model,state.points[0][0]);
   const chuck={...baseChuck,center:[frontX,0,0]};
   // The box width includes unmeasured positions of the tool-side parts.
   const contactRadius=Math.hypot(state.radius,arm.maxWidth/2+tubeRadius+4),bounds=window.RohrPlanMachines.movingBounds(model,state.radius);
@@ -65,8 +65,17 @@
   for(let i=1;i<state.points.length;i++){
    const a=state.points[i-1],b=state.points[i];
    if(Math.min(a[2],b[2])-padding<=model.floorZ){const point=a[2]<b[2]?a:b,actualContact=point[2]-tubeRadius<=model.floorZ;record('floor','Boden',i-1,point,actualContact&&state.phase!=='Futterdrehung'?'error':'warning');}
-   const bed=boxInterval(a,b,bodyMin,bodyMax,padding);if(bed)record('body','Maschinenbett',i-1,at(a,b,(bed[0]+bed[1])/2));
-   const guide=boxInterval(a,b,rail.min,rail.max,padding);if(guide)record('guide-top','Führungsrahmen · Oberkante',i-1,at(a,b,(guide[0]+guide[1])/2));
+   for(const box of bodyBoxes){const bed=boxInterval(a,b,box.min,box.max,padding);if(bed){record('body','Maschinenbett',i-1,at(a,b,(bed[0]+bed[1])/2));break;}}
+   const guide=boxInterval(a,b,rail.min,rail.max,padding);if(guide)record('guide-top','Führungsbalken',i-1,at(a,b,(guide[0]+guide[1])/2));
+   for(const box of supports?.boxes||[]){
+    const foot=boxInterval(a,b,[box.min[0],box.min[1],Math.min(box.min[2],model.floorZ)],box.max,padding);
+    if(foot){record('guide-supports','Stützfuß des Führungsbalkens',i-1,at(a,b,(foot[0]+foot[1])/2));break;}
+   }
+   // The tube clamped on the spindle axis passes through the carriage by design.
+   if(carriage&&![a[1],a[2],b[1],b[2]].every(v=>Math.abs(v)<EPS))for(const box of [carriage.plate,carriage.handle]){
+    const moved=boxInterval(a,b,[box.min[0]+frontX,box.min[1],box.min[2]],[box.max[0]+frontX,box.max[1],box.max[2]],padding);
+    if(moved){record('chuck-carriage','Futterschlitten / Griff',i-1,at(a,b,(moved[0]+moved[1])/2));break;}
+   }
    const spindle=chuckHit(a,b,chuck,tubeRadius,padding);if(spindle)record('chuck-front','Spannfutter',i-1,spindle);
    for(const [p,q]of armPieces(a,b,C,contactRadius)){
     const p0=transform.toLocal(p),p1=transform.toLocal(q);

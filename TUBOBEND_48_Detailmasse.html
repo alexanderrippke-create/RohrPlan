@@ -1,0 +1,123 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Maschine · Detailmaße</title><style>
+*{box-sizing:border-box}body{margin:0;background:#edf2ef;color:#20372c;font:17px/1.45 Segoe UI,Arial,sans-serif}main{max-width:1100px;padding:22px;margin:auto}h1{font-size:27px;margin:0 0 8px}h2{font-size:22px;margin:0 0 12px}.card{background:white;border:1px solid #cbd7cf;border-radius:12px;padding:18px;margin:18px 0;scroll-margin-top:15px}.toolbar,nav{display:flex;flex-wrap:wrap;gap:12px;align-items:center}button,nav a{font:inherit;border:1px solid #839d8c;border-radius:6px;padding:9px 12px;background:white;color:#24673e;cursor:pointer;text-decoration:none}.save{background:#287444;color:white}svg{display:block;width:100%;height:auto}.steel{fill:#acb8bb;stroke:#44545a;stroke-width:3}.dark{fill:#56646a;stroke:#354348;stroke-width:3}.base{fill:#4a84ae;stroke:#2b5676;stroke-width:3}.pipe{stroke:#25824b;stroke-width:4;stroke-dasharray:12 8;fill:none}.dim{stroke:#bd442f;stroke-width:2;fill:none;marker-start:url(#a);marker-end:url(#a)}.ext{stroke:#b66a5d;stroke-width:1.5;stroke-dasharray:5 5;fill:none}.cut{fill:#fff;stroke:#2b5676;stroke-width:2;stroke-dasharray:8 6}.lower{fill:#86b0cf;stroke:#2b5676;stroke-width:3}h3{font-size:17px;margin:14px 0 6px}.floor{stroke:#52665a;stroke-width:3;fill:none}svg text{font:22px Segoe UI,Arial;fill:#263c30;paint-order:stroke;stroke:white;stroke-width:5px;stroke-linejoin:round}.bold{font-weight:bold;fill:#b63e29}.entry{display:flex;align-items:center;justify-content:center;gap:5px;height:100%;background:white;font:21px Segoe UI,Arial;color:#af3d2a}.entry input{width:142px;min-width:0;border:2px solid #bd442f;border-radius:5px;padding:5px;font:inherit;text-align:center;background:#fffaf7;color:#20372c}.entry input:focus{outline:3px solid #87bb96}.entry input:invalid{background:#ffe1d9}.entry input::placeholder{color:#a1766d;font-size:15px}.info{padding:10px 12px;background:#edf7ef;border-left:4px solid #368b54}.check{padding:10px 12px;background:#fff6e0;border-left:4px solid #c08a1c}#saveStatus{font-size:15px;color:#52665a}.toolbar{margin-top:16px}.hint{font-size:15px;color:#566e60}table{border-collapse:collapse;width:100%;font-size:15px}td,th{border-bottom:1px solid #d5ded8;padding:6px 8px;text-align:left}@media(max-width:650px){main{padding:8px}.card{padding:8px}h1{font-size:23px}}@media print{body{background:white}main{padding:0}nav,.toolbar{display:none}.card{break-inside:avoid;border:0}.entry input{border:0;border-bottom:2px solid #555;border-radius:0;background:white}.entry input::placeholder{color:transparent}}
+</style><link rel="stylesheet" href="./dialog-theme.css"></head><body class="measurement-page"><main>
+<header class="intro"><h1 id="pageTitle">Detailmaße der Maschine eintragen</h1><p class="info">Diese Maße fehlen noch für ein genaues Modell. Solange ein Feld leer ist, rechnet die Simulation mit dem grau angezeigten Schätzwert aus den Fotos. Alle Längen in mm. Leere Felder sind erlaubt.</p><nav><a href="#beam">Führungsbalken</a><a href="#supports">Stützfüße</a><a href="#carriage">Futterschlitten</a><a href="#cylinder">Spannzylinder</a><a href="#housing">Gehäuse</a><a href="#check">Kontrolle</a></nav></header>
+<svg width="0" height="0" aria-hidden="true" style="position:absolute;width:0;height:0"><defs><marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1L9 5L0 9" fill="#bd442f"/></marker></defs></svg>
+<form id="detailForm" novalidate>
+<section class="card" id="beam"><h2>1 · Führungsbalken – Blick vom Biegekopf nach hinten</h2><p class="hint">So sieht es aus, wenn du am Biegekopf stehst und am Rohr entlang zum Futter schaust: vorn das Futter (grauer Kreis), darunter rechts der blaue Balken, auf dem der Futterschlitten fährt. Die Bedienseite mit dem Schaltkasten ist rechts.</p>
+<svg viewBox="0 0 1000 470" role="group" aria-label="Querschnitt Führungsbalken mit seitlichem Versatz und Höhe"><rect class="dark" x="245" y="100" width="170" height="195" rx="6"/><circle class="steel" cx="330" cy="190" r="82"/><path d="M312 190H348M330 172V208" stroke="#25824b" stroke-width="4"/><rect class="steel" x="295" y="295" width="80" height="22"/><rect class="base" x="375" y="300" width="250" height="130"/>
+<text x="30" y="196">Rohrmitte</text><path class="ext" d="M150 190H245"/><text x="400" y="375">Führungsbalken</text><text x="30" y="318">Schiene mit Maßband</text><path class="ext" d="M262 311H295"/>
+<path class="ext" d="M330 172V55M625 300V55"/><path class="dim" d="M330 65H625"/><text class="bold" x="335" y="40">G1 · Rohrmitte bis äußere Balkenkante</text><foreignObject x="640" y="45" width="190" height="50" data-field="beamOuterEdge"/><path class="ext" d="M625 300H715M625 430H715"/><path class="dim" d="M700 300V430"/><text class="bold" x="725" y="330">G2 · Balkenhöhe</text><foreignObject x="725" y="345" width="190" height="50" data-field="beamHeight"/>
+<text x="640" y="190">Seite von Schaltkasten und</text><text x="640" y="220">Spannzylinder (Arm bei 0°) →</text>
+</svg><p class="hint"><b>G1:</b> Maßband waagerecht quer zum Rohr halten. Messen von der Mitte des Futters (dort liegt das Rohr) bis zur Außenkante des blauen Balkens auf der Bedienseite. Am einfachsten: Rohr oder Stab einspannen, von der Rohrmitte aus messen. <b>G2:</b> Höhe des blauen Balkens von seiner Oberkante bis zu seiner Unterkante. Solange G1 fehlt, prüft die Kollisionsrechnung sicherheitshalber beide Lagen (mittig und versetzt).</p></section>
+<section class="card" id="supports"><h2>2 · Stützfüße des Führungsbalkens – von der Bedienseite</h2>
+<svg viewBox="0 0 1100 350" role="group" aria-label="Abstände der Stützfüße vom Tangentenpunkt"><path class="pipe" d="M1060 80H100"/><circle fill="#25824b" cx="100" cy="80" r="7"/><text text-anchor="end" x="85" y="86">O</text><rect class="base" x="190" y="120" width="830" height="42"/><rect class="steel" x="890" y="162" width="30" height="128"/><rect class="steel" x="550" y="162" width="30" height="128"/><path class="floor" d="M1060 290H20"/><text text-anchor="end" x="1050" y="320">Boden</text><text text-anchor="end" x="1010" y="110">Führungsbalken</text>
+<path class="ext" d="M565 162V228M100 80V275M905 162V275"/><path class="dim" d="M565 218H100"/><text text-anchor="end" class="bold" x="540" y="205">G3 · O bis Stützfuß 1</text><foreignObject x="120" y="224" width="190" height="48" data-field="support1FromTangent"/>
+<path class="dim" d="M905 268H100"/><text text-anchor="end" class="bold" x="885" y="255">G4 · O bis Stützfuß 2</text><foreignObject x="580" y="278" width="190" height="48" data-field="support2FromTangent"/>
+</svg><p class="hint">Jeweils von O (Tangentenpunkt an der Biegerolle) bis zur Mitte des Stützfußes. Ohne Maß werden die Füße nur hellgrau angedeutet und nicht geprüft. Hat die Maschine weniger Stützfüße, das Feld leer lassen.</p></section>
+<section class="card" id="carriage"><h2>3 · Futterschlitten – Griff und Klemmhebel</h2>
+<svg viewBox="0 0 1200 430" role="group" aria-label="Futterschlitten von oben und von vorn"><text text-anchor="end" x="1160" y="40">Von oben · Bedienseite unten</text><rect class="dark" x="900" y="80" width="85" height="140"/><rect class="steel" x="800" y="95" width="100" height="110" rx="8"/><rect class="steel" x="934" y="220" width="20" height="150"/><rect class="dark" x="929" y="300" width="30" height="70" rx="8"/><path class="pipe" d="M1160 150H640"/><text text-anchor="end" x="785" y="140">Rohrmitte</text><text text-anchor="end" x="1140" y="345">Griff</text><path class="ext" d="M1070 338H959"/>
+<path class="ext" d="M929 370H730"/><path class="dim" d="M745 150V370"/><text text-anchor="end" class="bold" x="910" y="415">F1 · Rohrmitte bis Griffende</text><foreignObject x="540" y="235" width="190" height="50" data-field="chuckHandleReach"/>
+<text text-anchor="end" x="480" y="40">Von vorn</text><rect class="dark" x="295" y="150" width="170" height="195" rx="6"/><circle class="steel" cx="380" cy="260" r="75"/><path d="M398 260H362M380 242V278" stroke="#25824b" stroke-width="4"/><rect class="steel" x="372" y="96" width="16" height="54"/><rect class="steel" x="320" y="80" width="120" height="16"/><text text-anchor="end" x="590" y="95">Klemmhebel</text><path class="ext" d="M460 88H440"/>
+<path class="ext" d="M320 80H215M305 260H215"/><path class="dim" d="M230 80V260"/><text text-anchor="end" class="bold" x="300" y="55">F2 · Rohrmitte bis Oberkante</text><foreignObject x="20" y="145" width="190" height="50" data-field="chuckCarriageTop"/>
+</svg><p class="hint">F1: seitlich von der Rohrmitte bis zum äußersten Ende des Griffs. F2: senkrecht von der Rohrmitte bis zum höchsten Punkt am Schlitten (Klemmhebel).</p></section>
+<section class="card" id="cylinder"><h2>4 · Spannzylinder am Biegearm – von oben</h2>
+<svg viewBox="0 0 1000 300" role="group" aria-label="Länge des Spannzylinders"><circle class="steel" cx="150" cy="170" r="72"/><path d="M138 170H162M150 158V182" stroke="#bc442f" stroke-width="3"/><text class="bold" x="60" y="275">C · Rollenachse</text><rect class="steel" x="150" y="155" width="490" height="30"/><rect class="dark" x="250" y="115" width="130" height="110"/><rect class="dark" x="380" y="125" width="260" height="90"/><rect class="steel" x="640" y="108" width="220" height="124" rx="16"/><text x="660" y="275">Spannzylinder</text><text x="250" y="270">Spannbacke</text>
+<path class="ext" d="M640 108V52M860 108V52"/><path class="dim" d="M640 62H860"/><text class="bold" x="330" y="50">K1 · Länge Zylinder</text><foreignObject x="655" y="5" width="190" height="48" data-field="clampCylinderLength"/>
+</svg><p class="hint">Nur für die Darstellung. Die Kollisionsprüfung nutzt weiter die gemessene Außenhülle (Reichweite W und größte Breite).</p></section>
+<section class="card" id="housing"><h2>5 · Gehäuse – Aussparungen und Absatz</h2>
+<h3>Von oben · Bedienseite unten, Biegekopf links</h3>
+<svg viewBox="0 0 1000 520" role="group" aria-label="Gehäuse von oben mit hinterer Aussparung und Nische"><rect class="base" x="200" y="80" width="560" height="360"/><rect class="lower" x="200" y="80" width="295" height="98"/><rect class="cut" x="495" y="80" width="265" height="98"/><rect class="cut" x="200" y="178" width="153" height="96"/><circle class="steel" cx="224" cy="226" r="38"/><path d="M212 226H236M224 214V238" stroke="#bc442f" stroke-width="3"/><path class="pipe" d="M60 251H960"/>
+<text x="245" y="140">Absatz</text><text x="560" y="140">Aussparung</text><text x="240" y="232">Nische</text><text class="bold" x="60" y="232">C</text><text x="780" y="243">← Rohr von rechts</text><text x="420" y="480">Bedienseite</text><text x="212" y="70">Rückseite</text><text x="790" y="330">Futter →</text><text x="30" y="330">← Biegekopf</text>
+<path class="ext" d="M495 80V48M760 80V48"/><path class="dim" d="M495 58H760"/><text class="bold" x="330" y="32">B1 · Länge</text><foreignObject x="540" y="2" width="190" height="46" data-field="housingRearCutLength"/>
+<path class="ext" d="M760 80H815M760 178H815"/><path class="dim" d="M800 80V178"/><text class="bold" x="820" y="100">B2 · Tiefe</text><foreignObject x="808" y="108" width="190" height="46" data-field="housingRearCutDepth"/>
+<path class="ext" d="M200 178H165M200 274H165"/><path class="dim" d="M175 178V274"/><text class="bold" x="2" y="150">B5 · Breite Nische</text><foreignObject x="0" y="158" width="170" height="46" data-field="housingNicheWidth"/>
+<path class="ext" d="M200 274V312M353 274V312"/><path class="dim" d="M200 302H353"/><text class="bold" x="370" y="300">B6 · Tiefe Nische</text><foreignObject x="365" y="308" width="190" height="46" data-field="housingNicheDepth"/>
+</svg>
+<h3>Vom Kopfende gesehen · Rückseite links</h3>
+<svg viewBox="0 0 1000 470" role="group" aria-label="Gehäuse vom Kopfende mit Absatz und Nischenhöhe"><rect class="base" x="250" y="90" width="500" height="310"/><rect class="cut" x="250" y="90" width="137" height="24"/><rect class="cut" x="387" y="90" width="132" height="154"/><rect class="steel" x="420" y="60" width="66" height="184"/><path class="ext" d="M130 90H900"/>
+<text x="770" y="82">Bettoberkante</text><text x="255" y="440">Rückseite</text><text x="610" y="440">Bedienseite</text><text x="395" y="290">Nische mit Säule</text>
+<path class="ext" d="M250 114H215"/><path class="dim" d="M225 90V114"/><text class="bold" x="20" y="150">B4 · Absatz tiefer</text><foreignObject x="20" y="158" width="190" height="46" data-field="housingRearStepDrop"/>
+<path class="ext" d="M519 244H575"/><path class="dim" d="M560 90V244"/><text class="bold" x="585" y="150">B7 · Höhe Nische</text><foreignObject x="580" y="158" width="190" height="46" data-field="housingNicheHeight"/>
+</svg>
+<h3>Von der Rückseite gesehen · Biegekopf rechts</h3>
+<svg viewBox="0 0 1000 380" role="group" aria-label="Gehäuse von der Rückseite mit Höhe der hinteren Aussparung"><rect class="base" x="200" y="80" width="560" height="250"/><rect class="cut" x="200" y="80" width="265" height="124"/>
+<text x="225" y="150">Aussparung</text><text x="520" y="150">Absatz</text><text x="210" y="365">← Futter</text><text x="600" y="365">Biegekopf →</text>
+<path class="ext" d="M200 80V48M465 80V48"/><path class="dim" d="M200 58H465"/><text x="480" y="62">B1 wie oben</text>
+<path class="ext" d="M200 80H150M200 204H150"/><path class="dim" d="M160 80V204"/><text class="bold" x="2" y="238">B3 · Höhe</text><foreignObject x="0" y="246" width="170" height="46" data-field="housingRearCutHeight"/>
+</svg><p class="hint">Hell gestrichelt = ausgespart. B1 bis B3 beschreiben die hintere Aussparung zum Futter hin, B4 den tieferen Absatz hinten am Kopfende, B5 bis B7 die offene Nische um die Säule unter der Rollenachse. Die Vorschau zeichnet sofort mit den Schätzwerten. Die Kollisionsprüfung rechnet mit einer Aussparung erst, wenn alle ihre Maße eingetragen sind (B1–B3 bzw. B5–B7; der Absatz B4 zusätzlich mit B5–B7), sonst mit dem vollen Kasten. Gibt es eine Aussparung nicht, 0 eintragen.</p></section>
+<section class="card" id="check"><h2>6 · Kontrolle der vorhandenen Maße</h2><p class="check" id="floorCheck"></p><table><thead><tr><th>Maß</th><th>Wert für die Simulation</th><th>Status</th></tr></thead><tbody id="summaryRows"></tbody></table></section>
+<div class="toolbar"><button type="submit" class="save" id="saveButton">Detailmaße speichern</button><button type="button" id="exportButton">Als JSON-Datei sichern</button><button type="button" id="importButton">JSON-Datei laden</button><input id="importFile" type="file" accept=".json,application/json" hidden><button type="button" onclick="window.print()">Drucken / PDF</button><span id="saveStatus" role="status" aria-live="polite"></span></div>
+</form>
+</main><script src="./tubobend-48-machine-data.js"></script><script src="./machine-profiles.js?v=modell-20261112-1"></script><script>
+(()=>{
+ 'use strict';
+ const api=window.RohrPlanMachines,definitions=api.detailFields(),el=id=>document.getElementById(id);
+ const editorMode=window.parent!==window&&new URLSearchParams(location.search).get('editor')==='1';
+ const form=el('detailForm'),status=el('saveStatus'),inputs={};let machine=null;
+ for(const box of document.querySelectorAll('foreignObject[data-field]')){
+  const name=box.dataset.field,field=definitions[name],wrapper=document.createElementNS('http://www.w3.org/1999/xhtml','div');wrapper.className='entry';
+  const input=document.createElement('input');input.id='detail-'+name;input.name=name;input.type='number';input.step='any';input.min=field.min;input.max=field.max;
+  input.placeholder=field.estimate===null?'offen':'geschätzt '+field.estimate;input.title=field.label;input.setAttribute('aria-label',field.label);
+  wrapper.append(input,document.createTextNode('mm'));box.append(wrapper);inputs[name]=input;
+ }
+ function collect(){const details={};for(const [name,input] of Object.entries(inputs))if(input.value.trim()!=='')details[name]=Number(input.value);return details;}
+ function summary(){
+  const details=collect(),rows=el('summaryRows');rows.replaceChildren();
+  for(const [name,field] of Object.entries(definitions)){
+   const measured=Number.isFinite(details[name]),row=document.createElement('tr');
+   for(const text of [field.label,measured?details[name]+' mm':field.estimate===null?'–':field.estimate+' mm',measured?'eingetragen':field.estimate===null?'offen · wird nicht geprüft':'geschätzt aus Fotos'+(field.collision?'':' · nur Darstellung')]){const cell=document.createElement('td');cell.textContent=text;row.append(cell);}
+   rows.append(row);
+  }
+  const bed=machine?.measurements?.groups?.M5;
+  if(machine&&bed){
+   const gap=machine.centerHeight+bed.bottomZFromTubeCenter;
+   el('floorCheck').textContent='Abstand Bettunterkante bis Boden laut gespeicherten Maßen: '+gap+' mm (Rohrmittenhöhe '+machine.centerHeight+' mm, Bettunterkante '+(-bed.bottomZFromTubeCenter)+' mm unter Rohrmitte). Bitte an der Maschine nachmessen: Auf den Fotos wirken die Räder nur etwa 200 mm hoch. Weicht der Wert ab, die Rohrmittenhöhe oder die Bettunterkante in der Maßskizze korrigieren.';
+  }
+ }
+ function load(next,message){
+  machine=next;el('pageTitle').textContent='Detailmaße · '+machine.name;document.title=machine.name+' · Detailmaße';
+  for(const [name,input] of Object.entries(inputs)){const value=machine.measurements?.details?.[name];input.value=Number.isFinite(value)?String(value):'';}
+  summary();status.textContent=message;
+ }
+ function validated(){
+  if(!machine)throw Error('Die Maschine ist noch nicht geladen.');
+  for(const input of Object.values(inputs))if(!input.checkValidity()){input.focus();throw Error('„'+input.title+'“: bitte eine Zahl zwischen '+input.min+' und '+input.max+' eintragen oder das Feld leer lassen.');}
+  return api.validate({...machine,measurements:{...machine.measurements,details:collect()}});
+ }
+ form.addEventListener('input',summary);
+ form.addEventListener('submit',event=>{
+  event.preventDefault();
+  try{
+   const next=validated();
+   if(editorMode){status.textContent='Detailmaße werden gespeichert …';window.parent.postMessage({type:'rohrplan-machine-editor-save',machine:next,detailsEdited:true},'*');}
+   else{load(api.save(next),'Gespeichert. Die Maße gelten für Simulation und Kollisionsprüfung dieser Maschine.');}
+  }catch(error){status.textContent=error.message;}
+ });
+ el('exportButton').onclick=()=>{
+  try{
+   const next=validated(),url=URL.createObjectURL(new Blob([JSON.stringify({format:'rohrplan-machine-detail-measurements',version:1,machine:next.name,units:'mm',details:next.measurements.details},null,2)],{type:'application/json'})),link=document.createElement('a');
+   link.href=url;link.download='Detailmasse-'+next.name.replace(/[^\w-]+/g,'-')+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);status.textContent='JSON-Datei zum Speichern bereitgestellt.';
+  }catch(error){status.textContent=error.message;}
+ };
+ el('importButton').onclick=()=>el('importFile').click();
+ el('importFile').onchange=async event=>{
+  try{
+   const file=event.target.files[0];if(!file)return;const data=JSON.parse(await file.text());
+   if(data?.format!=='rohrplan-machine-detail-measurements'||data.version!==1||!data.details||typeof data.details!=='object')throw Error('Keine gültige Detailmaß-Datei.');
+   for(const [name,input] of Object.entries(inputs)){const value=data.details[name];input.value=Number.isFinite(value)?String(value):'';}
+   summary();status.textContent='Datei geladen. Mit „Detailmaße speichern“ übernehmen.';
+  }catch(error){status.textContent=error.message;}
+  event.target.value='';
+ };
+ if(editorMode){
+  el('saveButton').textContent='Detailmaße speichern und schließen';status.textContent='Maschine wird geladen …';
+  window.addEventListener('message',event=>{
+   if(event.source!==window.parent)return;
+   if(event.data?.type==='rohrplan-machine-editor-error'){status.textContent=event.data.message;return;}
+   if(event.data?.type==='rohrplan-machine-editor-load')load(event.data.machine,'Leere Felder bleiben geschätzt. Speichern übernimmt die Maße für Simulation und Kollisionsprüfung.');
+  });
+  window.parent.postMessage({type:'rohrplan-machine-editor-ready'},'*');
+ }else load(api.getActive(),'Aktive Maschine geladen. Leere Felder bleiben geschätzt.');
+})();
+</script></body></html>

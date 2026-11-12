@@ -5,7 +5,7 @@
  const api=window.RohrPlanMachines;let draft=null;
  document.body.classList.add('machine-editor');
  document.title='Maschine · Maßskizze';document.querySelector('h1').textContent='Maschinenmaße direkt in die Skizze eintragen';
- document.querySelector('.info').textContent='Jeder rote Pfeil zeigt eine Messstrecke. Trage die Maße der neuen Maschine in die roten Felder ein. Der Rollen-Ø wird automatisch aus dem ausgewählten Rohr berechnet: 2 × Biegeradius. Alle Längen in mm. Speichern übernimmt diese Maße für Simulation und Kollisionsprüfung.';
+ document.querySelector('.info').textContent='Jeder rote Pfeil zeigt eine Messstrecke. Trage die Maße der neuen Maschine in die roten Felder ein. Der Rollen-Ø wird automatisch aus dem ausgewählten Rohr berechnet: 2 × Biegeradius. Alle Längen in mm. Die Draufsichten zeigen die Maschine von der Bedienseite: Schaltkasten unten, Biegekopf links, Rohr von rechts. Speichern übernimmt diese Maße für Simulation und Kollisionsprüfung.';
  document.querySelector('nav a[href="TUBOBEND_48_Modellvorschau.html"]')?.remove();
  document.querySelector('.hint.actions').textContent='Die Skizze gilt für eine waagerechte Biegemaschine in der gezeigten Ausrichtung. Jede Maschine wird mit eigenen Maßen gespeichert.';
  const details=document.createElement('section');details.className='card machine-identity';
